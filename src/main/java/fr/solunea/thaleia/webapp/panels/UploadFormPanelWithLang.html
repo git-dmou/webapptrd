@@ -1,0 +1,142 @@
+<html
+	xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<body>
+	<wicket:head>
+		<script type="text/javascript">
+		function uploadProcessing() {
+			//$('#progress').show();
+			$('#maxSizeLabel').hide();
+			$('#uploadFormPanelForm').hide();
+			var bar = $('.progress-bar');
+		}
+		
+		$(document).ready(function(){
+			if (window.File && window.FileList && window.FileReader) {
+				$("#filedrop").get(0).addEventListener("dragover", function(e){
+					e.stopPropagation();
+					e.preventDefault();
+					$(".btn-submitfile").html($(".labeldrop").html());
+				}, false);
+				$("#filedrop").get(0).addEventListener("dragleave", function(e){
+					e.stopPropagation();
+					e.preventDefault();
+					$(".btn-submitfile").html($(".labelclick").html());
+				}, false);
+				$("#filedrop").get(0).addEventListener("drop", function(e){
+					e.stopPropagation();
+					e.preventDefault();
+					var files = e.target.files || e.dataTransfer.files;
+					$("#fileInput").get(0).files = files;
+					$(".btn-submitfile").html($(".labelclick").html());
+				}, false);
+			}
+			
+			//On applique une correction specifique à windows 8
+			if (navigator.appVersion.indexOf("Windows NT 6.2") != -1){
+				$("#uploadFormPanelForm INPUT.upload").css({
+					"position": "absolute",
+					"z-index": "3",
+					"width": "217px",
+					"height": "55px",
+					"top": "-6px",
+					"left": "15px",
+					"margin": "0",
+					"padding": "0",
+					"font-size": "40px",
+					"cursor": "pointer",
+					"opacity": "0",
+					"overflow": "hidden",
+					"filter": "alpha(opacity = 0)",
+					"visibility": "visible"             
+				}
+				);
+			}
+	
+		});
+				
+		</script>
+		<style type="text/css">
+
+#uploadFormPanelForm input.upload {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity = 0);
+	visibility: hidden;
+}
+
+.btn.sharp {
+	border-radius: 0;
+	padding: 14px 45px;
+	background: #5D9CEC;
+	color: #fff;
+	font-size: 1em;
+	transition: all .4s;
+	cursor: pointer;
+	text-shadow: none;
+}
+</style>
+
+<!--[if lt IE 9]>
+<style type="text/css">
+#uploadFormPanelForm INPUT.upload {
+    position: absolute;
+    z-index: 3;
+    width: 217px;
+    height: 48px;
+    top: 0px;
+    left: 15px;
+    margin: 0;
+    padding: 0;
+    font-size: 40px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity = 0);
+    visibility: visible;
+}
+</style>
+<![endif]-->
+	</wicket:head>
+
+	<wicket:panel>
+		<div class="row" id="filedrop">
+			<div class="col-md-12">
+				<form id="uploadFormPanelForm" wicket:id="uploadForm">
+					<input type="file" class="upload" wicket:id="fileInput"	id="fileInput" onchange="uploadProcessing();" />
+				</form>
+				<div class="btn-group uploadButtonWithLang">
+				  <button  id="btn_uploadButtonWithLang" class="btn btn-blue btn-submitfile" onclick="$('#uploadFormPanelForm .upload').click(); return false;">	
+					<span><wicket:message key="defaultButtonLabel"></wicket:message></span>
+				  </button>
+				  <button type="button" class="btn btn-blue dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+				    <span wicket:id="currentSelectedLang"></span>
+				    <span class="caret"></span>
+				    <span class="sr-only">Toggle Dropdown</span>
+				  </button>
+				  <ul class="dropdown-menu" role="menu">
+				    <li wicket:id="langSelectorRow">
+				    	<a wicket:id="langSelectorLink"><span wicket:id="linktext"></span></a>
+				    </li>
+				  </ul>
+				</div>
+				<span wicket:id="progressbar">[[upload progressbar]]</span>
+			</div>
+			<span style="display:none" class="labelclick" wicket:id="buttonLabel">Libellé du bouton de sélection</span>
+			<span style="display:none" class="labeldrop" wicket:id="buttonLabelDrop">Libellé du bouton de sélection</span>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<span wicket:id="maxSizeLabel" id="maxSizeLabel" class="muted">Taille
+			maximale du fichier : 100 Mo</span>
+			</div>
+		</div>
+		
+		<p class="file-return"></p>
+	</wicket:panel>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<html xmlns:wicket="http://wicket.apache.org">
+<body>
+<wicket:panel>
+
+<input type="hidden" wicket:id="recorder"/>
+<div class="row palette">
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-4">
+				<div class="row">
+					<div class="col-md-12"><span wicket:id="availableHeader">[available header]</span></div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<select wicket:id="choices" class="choicesSelect form-control"></select>	
+					</div>
+				</div>
+			</div>
+			<div class="col-md-2">
+				<div class="row top20">
+					<button type="button" wicket:id="addButton" class="button btn btn-gray add col-md-12"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
+				</div>
+				<div class="row top5">
+					<button type="button" wicket:id="removeButton" class="button btn btn-gray remove col-md-12"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
+				</div>
+				<div class="row top5">
+					<button type="button" wicket:id="moveUpButton" class="button btn btn-gray up col-md-12"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></button>
+				</div>
+				<div class="row top5">
+					<button type="button" wicket:id="moveDownButton" class="button btn btn-gray down col-md-12"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></button>
+				</div>
+				<div class="row top5">
+					<button type="button" wicket:id="addAllButton" class="button btn btn-gray addAll col-md-12"><span class="glyphicon glyphicon-forward" aria-hidden="true"></span></button>
+				</div>
+				<div class="row top5">
+					<button type="button" wicket:id="removeAllButton" class="button btn btn-gray removeAll col-md-12"><span class="glyphicon glyphicon-backward" aria-hidden="true"></span></button>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="row">
+					<div class="col-md-12"><span wicket:id="selectedHeader">[selected header]</span></div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<select wicket:id="selection" class="selectionSelect form-control"></select>	
+					</div>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+	</div>
+</div>
+</wicket:panel>
+</body>
+</html>

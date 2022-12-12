@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html
+	xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+</head>
+<body>
+	<wicket:panel>
+		<span wicket:id="feedback"></span>
+		<table class="table table-thaleia table-striped table-borderless table-hover font-weight-light my-3 table-plugins">
+			<thead wicket:id="header">
+				<tr>
+					<th style="width:auto;"><span wicket:id="pluginLabel">Plugin</span></th>
+					<th style="width:60%;"><span wicket:id="descriptionLabel">Description</span></th>
+					<th><span wicket:id="domainLabel">Domaine</span></th>
+					<th><span wicket:id="actionsLabel">Actions</span></th>
+                    <th><span wicket:id="revisionLabel">Revision</span></th>
+				</tr>
+			</thead>
+			<tbody wicket:id="objects">
+				<tr>
+					<td class="p-3"><img class="img-rounded img-fluid rounded"  style="max-width: 200px;" wicket:id="image" /></td>
+					<td class="p-3"><h5>
+							<span wicket:id="name">Nom du plugin</span>
+						</h5>
+						<p wicket:id="description">Description</p>
+						<a class="btn btn-link info" href="#" wicket:id="btnInfo"><span
+							wicket:id="btnInfoLabel">Détails</span></a>
+						<a class="btn btn-link success" href="#" wicket:id="btnExecute"><span
+							wicket:id="btnExecuteLabel">Commencer</span></a>
+					</td>
+					<td><form wicket:id="form" class="btn btn-link p-0">
+							<select class="border-0 px-3 py-2" wicket:id="domain" onchange=" this.form.submit();"></select>
+						</form></td>
+					<td class="text-center"><a class="text-center btn btn-link danger d-inline-flex px-3 py-2 align-items-center justify-content-center" wicket:id="delete" href="#">
+						<span wicket:id="deleteLabel">Supprimer</span>
+						<svg class="icon-small ml-2 align-self-center">
+							<use href="#icon-trash"></use>
+						</svg>
+					</a></td>
+                    <td class="text-center">
+                        <p wicket:id="revision">revision</p>
+                    </td>
+				</tr>
+			</tbody>
+		</table>
+		<a wicket:id="newLink" class="btn-thaleia btn p-4 text-center fadeIn " href="">
+			<span wicket:id="newLabel" class="mr-2 ml-0 mr-md-2 ml-lg-0 mr-lg-3">
+				Nouveau
+			</span>
+			<span class="ml-0 ml-md-2 ml-lg-3 align-self-center">
+				 <svg class="icon-small">
+					 <use href="#icon-new"></use>
+				 </svg>
+			</span>
+		</a>
+	</wicket:panel>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<wicket:panel xmlns:wicket="http://wicket.apache.org">
+
+    <div class="w-100 d-flex flex-column align-items-stretch justify-content-between" id="profil">
+        <div class="container-lg align-self-center px-3 px-xl-5 py-3 py-lg-4 py-xl-5 m-auto delayed">
+            <nav aria-label="breadcrumb" class="justify-content-between d-flex mb-4 align-items-center">
+                <!--Return button-->
+                <a wicket:id="btnBack" class="breadcrumb btn-link primary-color m-0" id="nav-home">
+                    <svg class="icon-tiny fill-thaleia align-self-center mr-3">
+                        <use href="#icon-arrow-l"></use>
+                    </svg>
+                    <span>
+                        <wicket:message key="backLabel">Retour</wicket:message>
+                    </span>
+                </a>
+                <h2 wicket:id="login" class="primary-color font-weight-bold gradient-text fadeIn"></h2>
+                <!--Locale selector-->
+                <ul wicket:id="localeSelector" class="dropdown breadcrumb btn-link primary-color m-0 p-0 align-items-center"></ul>
+            </nav>
+
+            <!--TODO ajuster l'emplacement-->
+            <div wicket:id="feedbackPanel">
+                Le panneau des messages d'avertissement et d'erreur
+            </div>
+
+            <!-- Inputs Admin -->
+            <form wicket:id="form" class="input-thaleia mb-3 fadeIn delayed px-5 pt-5 pb-4 panel-white">
+                <input wicket:id="name"
+                       id="lname" name="lname" type="text"
+                       class="form-control border-0 rounded btn-link mb-3 fadeIn"
+                       aria-label="Nom">
+                <input wicket:id="postalAddress"
+                       id="email" name="email" type="text"
+                       class="form-control border-0 rounded btn-link mb-3 fadeIn"
+                       aria-label="Adresse postale">
+                <div wicket:id="adminRows">
+                    <div class="row align-items-center form-group">
+                        <label class="col-auto my-0">
+                            <wicket:message key="domainLabel">
+                                Domaine
+                            </wicket:message>
+                        </label>
+                        <div class="col">
+                            <select wicket:id="domain" class="form-control custom-select"></select>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-auto control-label">
+                            <wicket:message key="licenceLabel">
+                                Licence
+                            </wicket:message>
+                        </label>
+                        <div class="col font-weight-bold">
+                            <span wicket:id="currentLicence"></span>
+                            <span wicket:id="licenceWarningMessage">
+                                <i class="icon-warning-sign"></i>
+                                <wicket:message key="licenceWarning">
+                                    Attention ! Pensez à attribuer une licence à cet utilisateur !
+                                </wicket:message>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="custom-control custom-checkbox mr-3">
+                            <input wicket:id="isAdmin" class="custom-control-input"
+                                   id="isAdmin" type="checkbox" name="isAdmin">
+                            <label class="custom-control-label" for="isAdmin">
+                                <wicket:message key="adminLabel">
+                                    Administrateur
+                                </wicket:message>
+                            </label>
+                        </div>
+                        <div class="custom-control custom-checkbox mr-3">
+                            <input wicket:id="menuTools" class="custom-control-input"
+                                   id="menuTools" type="checkbox" name="menuTools">
+                            <label class="custom-control-label" for="menuTools">
+                                <wicket:message key="toolsMenuLabel">
+                                    Menu Outils
+                                </wicket:message>
+                            </label>
+                        </div>
+                        <div class="custom-control custom-checkbox mr-3">
+                            <input wicket:id="menuContents" class="custom-control-input"
+                                   id="menuContents" type="checkbox" name="menuContents">
+                            <label class="custom-control-label" for="menuContents">
+                                <wicket:message key="contentsMenuLabel">
+                                    Menu Contenus
+                                </wicket:message>
+                            </label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input wicket:id="menuModules" class="custom-control-input"
+                                   id="menuModules" type="checkbox" name="menuModules">
+                            <label class="custom-control-label" for="menuModules">
+                                <wicket:message key="modulesMenuLabel">
+                                    Menu Modules
+                                </wicket:message>
+                            </label>
+                        </div>
+                        </div>
+                    <div class="form-group row mt-4 align-items-center">
+                        <label class="col-auto control-label m-0">
+                            <wicket:message key="expirationLabel">
+                                Expiration
+                            </wicket:message>
+                        </label>
+                        <div class="col">
+                            <span wicket:id="expiration"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <button wicket:id="proxyLogin" class="btn btn-thaleia p-4 w-100">
+                                <wicket:message key="proxyLogin">
+                                    Se connecter en tant que
+                                </wicket:message>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col">
+                        <span wicket:id="passwordCreationMessage"></span>
+                    </div>
+                </div>
+                <div class="w-100 d-flex flex-column justify-content-between fadeIn">
+                    <!--
+                        <div class="d-flex w-50">
+                            <div class="custom-control custom-checkbox">
+                                <input wicket:id="newsletter" type="checkbox"
+                                       class="custom-control-input" id="customCheck1">
+                                <label class="custom-control-label" for="customCheck1">
+                                    <wicket:message key="toolsNewsletterLabel">
+                                        Newsletter
+                                    </wicket:message>
+                                </label>
+                            </div>
+                        </div>
+                        -->
+                    <div class="d-flex justify-content-end my-3 pt-4 w-100">
+                        <div class="d-flex w-100">
+                            <button wicket:id="cancel" type="submit" href="#"
+                                    class="btn-thaleia btn p-4 text-center fadeIn error w-100">
+                                <span class="mr-2 ml-0 mr-md-2 ml-lg-0 mr-lg-2">
+                                    <wicket:message key="cancelLabel">
+                                        Annuler
+                                    </wicket:message>
+                                </span>
+                                <span class="ml-0 align-self-center">
+                                    <svg class="icon-small">
+                                        <use href="#icon-quit"></use>
+                                    </svg>
+                                </span>
+                            </button>
+                            <button wicket:id="save" type="submit" href="#"
+                                    class="btn-thaleia btn p-4 text-center fadeIn w-100 ml-3">
+                                <span class="mr-2 ml-0 mr-md-2 ml-lg-0 mr-lg-2">
+                                    <wicket:message key="saveLabel">
+                                        Enregistrer
+                                    </wicket:message>
+                                </span>
+                                <span class="ml-0 align-self-center">
+                                    <svg class="icon-small">
+                                        <use href="#icon-save"></use>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="border-bottom pt-4" wicket:id="changePasswordPanel"></div>
+            <div class="row">
+                <div class="col">
+                    <div wicket:id="licencesPanel"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div wicket:id="buyProcessesPanel"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="overlay"></div>
+</wicket:panel>

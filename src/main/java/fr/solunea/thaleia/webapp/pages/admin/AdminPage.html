@@ -1,0 +1,163 @@
+<html
+        xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<body>
+<wicket:extend>
+    <div class="d-flex h-100 fh-100 minh-100 align-items-stretch justify-content-between flex-row w-100 thaleia-admin">
+        <nav id="sidebar" class="d-md-flex sidebar-left justify-content-end">
+            <div class="d-flex flex-wrap align-content-between justify-content-center sidebar-fh-100 py-5 sticky-top">
+                <!-- Navigation dans la page -->
+                <ul class="list-unstyled py-3 text-right font-weight-light text-nowrap w-100" id="pluginMenuPanel4d2"
+                    wicketpath="content_pluginMenuPanel">
+                    <!--<wicket:message key="pageLabel">Administration</wicket:message>-->
+                    <ul class="list-unstyled py-3 text-right font-weight-light text-nowrap w-100">
+                        <li wicket:id="pluginsLi" class="active">
+                            <a class="pl-0" wicket:id="pluginsLink" wicket:message="title:pluginsLabel"
+                               data-toggle="tooltip" data-placement="right">
+                                <span><wicket:message key="pluginsLabel">Gestion des plugins</wicket:message></span>
+                                <span class="ml-3">
+                                    <svg class="icon-small fill-white">
+                                        <use href="#icon-new"></use>
+                                    </svg>
+                                </span>
+                            </a>
+                        </li>
+                        <li wicket:id="usersSectionLi">
+                            <a class="pl-0" wicket:id="usersSectionLink" wicket:message="title:usersLabel"
+                               data-trigger="hover" data-toggle="tooltip" data-placement="right">
+                                <span><wicket:message key="usersLabel">Gestion des utilisateurs</wicket:message></span>
+                                <span class="ml-3">
+                                    <svg class="icon-small fill-white">
+                                        <use href="#icon-user"></use>
+                                    </svg>
+                                </span>
+                            </a>
+                        </li>
+                        <li wicket:id="propertiesLi">
+                            <a class="pl-0" wicket:id="propertiesLink" wicket:message="title:propertiesLabel"
+                               data-trigger="hover" data-toggle="tooltip" data-placement="right">
+                                <span><wicket:message
+                                        key="propertiesLabel">Gestion des propriétés</wicket:message></span>
+                                <span class="ml-3">
+                                    <svg class="icon-small fill-white">
+                                        <use href="#icon-config"></use>
+                                    </svg>
+                                </span>
+                            </a>
+                        </li>
+                        <li wicket:id="localesLi">
+                            <a class="pl-0" wicket:id="localesLink" wicket:message="title:localesLabel"
+                               data-trigger="hover" data-toggle="tooltip" data-placement="right">
+                                <span><wicket:message key="localesLabel">Gestion des locales</wicket:message></span>
+                                <span class="ml-3">
+                                    <svg class="icon-small fill-white">
+                                        <use href="#icon-flag"></use>
+                                    </svg>
+                                </span>
+                            </a>
+                        </li>
+                        <li wicket:id="parametersLi">
+                            <a class="pl-0" wicket:id="parametersLink" wicket:message="title:parametersLabel"
+                               data-trigger="hover" data-toggle="tooltip" data-placement="right">
+                                <span><wicket:message key="parametersLabel">Paramètres</wicket:message></span>
+                                <span class="ml-3">
+                                    <svg class="icon-small fill-white">
+                                        <use href="#icon-config"></use>
+                                    </svg>
+                                </span>
+                            </a>
+                        </li>
+                        <li wicket:id="toolsLi">
+                            <a class="pl-0" wicket:id="toolsLink" wicket:message="title:toolsLabel" data-trigger="hover"
+                               data-toggle="tooltip" data-placement="right">
+                                <span><wicket:message key="toolsLabel">Outils d'administration</wicket:message></span>
+                                <span class="ml-3">
+                                    <svg class="icon-small fill-white">
+                                        <use href="#icon-admin-2"></use>
+                                    </svg>
+                                </span>
+                            </a>
+                        </li>
+                        <li wicket:id="monitorLi">
+                            <a class="pl-0" wicket:id="monitorLink" wicket:message="title:monitoringLabel"
+                               data-trigger="hover" data-toggle="tooltip" data-placement="right">
+                                <span><wicket:message key="monitoringLabel">Monitoring</wicket:message></span>
+                                <span class="ml-3">
+                                    <svg class="icon-small fill-white">
+                                        <use href="#icon-sys"></use>
+                                    </svg>
+                                </span>
+                            </a>
+                        </li>
+                        <li wicket:id="usageLi">
+                            <a class="pl-0" wicket:id="usageLink" wicket:message="title:usageLabel" data-trigger="hover"
+                               data-toggle="tooltip" data-placement="right">
+                                <span><wicket:message key="usageLabel">Usage</wicket:message></span>
+                                <span class="ml-3">
+                                    <svg class="icon-small fill-white">
+                                        <use href="#icon-gauge"></use>
+                                    </svg>
+                                </span>
+                            </a>
+                        </li>
+                        <li wicket:id="apiLi">
+                            <a class="pl-0" wicket:id="apiLink" wicket:message="title:apiLabel" data-trigger="hover"
+                               data-toggle="tooltip" data-placement="right">
+                                <span><wicket:message key="apiLabel">API</wicket:message></span>
+                                <span class="ml-3">
+                                    <svg class="icon-small fill-white">
+                                        <use href="#icon-api"></use>
+                                    </svg>
+                                </span>
+                            </a>
+                        </li>
+                        <li wicket:id="mailjetLi">
+                            <a class="pl-0" wicket:id="mailjetLink" wicket:message="title:mailjetLabel"
+                               data-trigger="hover" data-toggle="tooltip" data-placement="right">
+                                <span><wicket:message key="mailjetLabel">Mailjet</wicket:message></span>
+                                <span class="ml-3">
+                                    <svg class="icon-small fill-white">
+                                        <use href="#icon-api"></use>
+                                    </svg>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </ul>
+            </div>
+        </nav>
+        <div id="module-admins"
+             class="d-flex align-items-stretch h-100 fh-100 padding-navbar position-relative m-auto flex-column w-100">
+            <span class="h-auto w-100" wicket:id="feedback"></span>
+            <div class="container-lg align-self-center px-3 px-xl-5 py-3 py-lg-4 py-xl-5 m-auto delayed">
+                <!-- Contenu de la page -->
+                <div wicket:id="adminPageContent"></div>
+            </div>
+            <div class="overlay"></div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        function mediaQueryTooltips(x) {
+            if (x.matches) { // If media query matches
+                $(document).ready(function () {
+                    $('[data-toggle="tooltip"]').tooltip('enable');
+                });
+            } else {
+                $(document).ready(function () {
+                    $('[data-toggle="tooltip"]').tooltip('disable');
+                });
+
+            }
+        }
+
+        var x = window.matchMedia("(max-width: 1350px)")
+        mediaQueryTooltips(x) // Call listener function at run time
+        x.addListener(mediaQueryTooltips) // Attach listener function on state changes
+
+    </script>
+</wicket:extend>
+</body>
+</html>

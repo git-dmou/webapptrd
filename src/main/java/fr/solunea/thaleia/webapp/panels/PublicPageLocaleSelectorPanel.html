@@ -1,0 +1,38 @@
+<!doctype html>
+<html
+        xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<head>
+    <meta charset="utf-8">
+    <title>LocalSelectorPanel</title>
+</head>
+<body>
+<wicket:panel>
+
+    <li class="nav-item d-flex dropdown">
+        <a href="#" id="locale-dropdown" role="button"
+           class="nav-link align-self-center px-3" data-toggle="dropdown">
+            <span wicket:id="currentLocale">fr</span>
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right" id="localeSelectorDropdown" role="menu"
+            aria-labelledby="locale-dropdown">
+            <a href="#" wicket:id="goEnglish">
+                <li class="dropdown-item py-3 font-weight-light">
+                    <span>
+                        <wicket:message key="goEnglish.text">[En]</wicket:message>
+                    </span>
+                </li>
+            </a>
+            <a href="#" wicket:id="goFrench">
+                <li class="dropdown-item py-3 font-weight-light">
+                    <span>
+                        <wicket:message key="goFrench.text">[Fr]</wicket:message>
+                    </span>
+                </li>
+            </a>
+        </ul>
+    </li>
+
+</wicket:panel>
+</body>
+</html>

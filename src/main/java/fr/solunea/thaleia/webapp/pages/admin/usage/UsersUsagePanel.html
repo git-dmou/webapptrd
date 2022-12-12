@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html
+        xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title></title>
+</head>
+<body>
+<wicket:panel>
+    <table class="table table-thaleia table-bordered table-condensed">
+        <thead>
+        <tr>
+            <th>
+                <wicket:message key="header.user">Utilisateur</wicket:message>
+            </th>
+            <th>
+                <wicket:message key="header.last.access">Dernier accès</wicket:message>
+            </th>
+            <th>
+                <wicket:message key="header.loggedin">Connexions</wicket:message>
+            </th>
+            <th>
+                <wicket:message key="header.cannelle.contents">Contenus Cannelle</wicket:message>
+            </th>
+            <th>
+                <wicket:message key="header.moustache.contents">Contenus Moustache</wicket:message>
+            </th>
+            <th>
+                <wicket:message key="header.dialogue.contents">Contenus Dialogue</wicket:message>
+            </th>
+        </tr>
+        </thead>
+        <tbody wicket:id="objects">
+        <tr>
+            <td><span wicket:id="login"></span></td>
+            <td><span wicket:id="lastAccess"></span></td>
+            <td><span wicket:id="connections"></span></td>
+            <td><span wicket:id="cannelleContents"></span></td>
+            <td><span wicket:id="moustacheContents"></span></td>
+            <td><span wicket:id="dialogueContents"></span></td>
+        </tr>
+        </tbody>
+    </table>
+</wicket:panel>
+</body>
+</html>

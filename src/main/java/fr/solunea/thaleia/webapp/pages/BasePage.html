@@ -1,0 +1,74 @@
+<!doctype html>
+<html
+	xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<head>
+<meta charset="utf-8">
+<title>Test BasePage</title>
+</head>
+<body wicket:id="body">
+	<wicket:extend>
+		<div id="wrap">
+			<div id="main" class="container-fluid clear-top">
+				<!-- navbar
+				=================================== -->
+				<div class="mainmenu navbar navbar-fixed-top">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<a class="navbar-brand" wicket:id="logoLink" href="#"><img
+								class="thaleia-logo" wicket:id="thaleia-logo"></a>
+							<button type="button" class="navbar-toggle collapsed"
+								data-toggle="collapse" data-target="#mainmenu">
+								<span class="sr-only">Menu</span> <span class="icon-bar"></span>
+								<span class="icon-bar"></span> <span class="icon-bar"></span>
+							</button>
+						</div>
+						<div class="collapse navbar-collapse" id="mainmenu">
+							<ul class="nav navbar-nav navbar-right">
+								<li wicket:id="menu"></li>
+								<li><a wicket:id="actionsLink" href="#"
+									class="responsiveWithImage"> <span><span
+											wicket:id="homeLabel">Accueil</span></span> <img
+										wicket:id="homeImage" style="padding-top: 18px;" />
+								</a></li>
+								<li wicket:id="accountMenu" class="dropdown"
+									style="width: 63px;"><a href="#" id="Jerikokonut6account-dropdown"
+									role="button" class="dropdown-toggle responsiveWithImage"
+									data-toggle="dropdown"> <span><span
+											wicket:id="accountLabel">Mon compte</span><b class="caret"></b></span>
+										<img class="img-responsive" wicket:id="myAccountImage"
+										style="width: 100%; padding-top: 12px;" />
+								</a>
+									<ul id="myAccountDropdown" class="dropdown-menu text-light"
+										role="menu" aria-labelledby="account-dropdown">
+										<li><a href="#" wicket:id="userNameLink"> <span
+												wicket:id="userName">Nom utilisateur</span>
+										</a></li>
+										<li><a href="#" wicket:id="loginLink"> <span
+												wicket:id="loginContent">Connexion</span>
+										</a></li>
+										<li><a href="#" wicket:id="logoutLink"> <span
+												wicket:id="logoutContent">Déconnexion</span>
+										</a></li>
+									</ul></li>
+								<li wicket:id="localeSelectorPanel"></li>
+							</ul>
+						</div>
+					</div>
+					<div class="row decobar">
+						<div class="bg-blue"></div>
+					</div>
+				</div>
+				<!-- container
+				=================================== -->
+
+				<div>
+					<br />
+					<wicket:child />
+				</div>
+			</div>
+
+			<div id="push" class="top30"></div>
+		</div>
+	</wicket:extend>
+</body>
+</html>

@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html
+        xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title></title>
+</head>
+<body>
+  <wicket:panel>
+      <!--Filter by domaine name-->
+      <form wicket:id="form" class="input-group input-thaleia fadeIn z-index-1">
+
+          <input wicket:id="filter" id="inputSearch" class="form-control py-4 border-0 rounded search btn-link"
+                 type="text" required="required" aria-label="Text input with segmented dropdown button" placeholder="Domain :  taper '%' pour afficher la liste complète">
+          <svg wicket:id="search" class="icon-search align-self-center">
+              <use href="#icon-search"></use>
+          </svg>
+      </form>
+
+        <thead>
+        <tr>
+            <th>
+                <wicket:message key="domainLabel"/>
+            </th>
+            <th>
+                <wicket:message key="parentDomainLabel"/>
+            </th>
+            <th>
+                <wicket:message key="domainRightsLabel"/>
+                <span
+                        class="top" wicket:message="title:domainRightsTooltip"><i
+                        class="icon-question-sign"></i></span></th>
+            <th>
+                <wicket:message key="sizeLabel"/>
+            </th>
+            <th class="text-center" style="width:240px;">
+                <wicket:message key="actionsLabel"/>
+            </th>
+        </tr>
+        </thead>
+        <tbody wicket:id="objects">
+        <tr>
+            <td><span wicket:id="name"></span></td>
+            <td><span wicket:id="parent.name"></span></td>
+            <td><span wicket:id="accessibles"></span></td>
+            <td><span wicket:id="size"></span></td>
+            <td class="actions">
+                <div class="d-flex btn-link-group align-items-center justify-content-center w-100">
+                    <a class="btn-link rounded d-flex px-1 py-2 align-items-center justify-content-between" wicket:id="delete" href="#">
+                        <br>
+                        <span class="ml-2 position-absolute"><wicket:message key="delete"/></span>
+                        <svg class="icon-small mx-2 align-self-center">
+                            <use href="#icon-trash"></use>
+                        </svg>
+                    </a>
+                    <a class="btn-link rounded d-flex px-1 py-2 align-items-center justify-content-between" wicket:id="edit" href="#">
+                        <br>
+                        <span class="ml-2 position-absolute"><wicket:message key="edit"/></span>
+                        <svg class="icon-small mx-2 align-self-center">
+                            <use href="#icon-edit"></use>
+                        </svg>
+                    </a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    <a class="btn btn-thaleia btn text-center fadeIn p-3 my-2" wicket:id="new" href="#">
+        <wicket:message key="newDomain"/>
+    </a>
+</wicket:panel>
+</body>
+</html>

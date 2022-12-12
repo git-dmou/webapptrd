@@ -1,0 +1,82 @@
+﻿<!doctype html>
+<html
+	xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<head>
+<meta charset="utf-8">
+</head>
+<body>
+	<wicket:panel>
+		<span wicket:id="feedback"></span>
+		<h3 class="mt-5 mb-4 fadeIn w-100">
+			<wicket:message key="panelTitle">Licences</wicket:message>
+		</h3>
+
+        <p><wicket:message key="currentLicenceLabel">Licence en cours de validité : </wicket:message></p>
+        <span wicket:id="currentLicence"></span>
+
+        <a wicket:id="getLicenceLink" class="btn btn-blue btn-block">
+            <wicket:message key="getLicenceLinkLabel">Acheter une licence</wicket:message>
+        </a>
+
+		<!-- Tableau -->
+        <div class="table-wrapper">
+            <table class="table table-thaleia my-4 fadeIn">
+                <thead>
+                <tr>
+                    <th scope="col" class="sort sticky-top" data-sort="title" role="button" aria-pressed="false"
+                        aria-hidden="false">
+                        <wicket:message key="head.date">Date</wicket:message>
+                    </th>
+                    <th scope="col" class="sort sticky-top" data-sort="date-month" role="button" aria-pressed="false"
+                        aria-hidden="false">
+                        <wicket:message key="head.licence">Licence</wicket:message>
+                    </th>
+                    <th scope="col" class="sort sticky-top" data-sort="date-month" role="button" aria-pressed="false"
+                        aria-hidden="false">
+                        <wicket:message key="head.validity">Validité</wicket:message>
+                    </th>
+                    <th scope="col" class="sort sticky-top text-center" data-sort="date-month" role="button"
+                        aria-pressed="false" aria-hidden="false">
+                        <wicket:message key="head.invoice">Facture</wicket:message>
+                    </th>
+                </tr>
+                </thead>
+                <tbody class="list" wicket:id="datatable">
+                <tr class="fadeInUp">
+                    <td class="date-month" data-attribute="15-05-2019"><span wicket:id="executionDate"></span></td>
+                    <td class="title"><span wicket:id="licence"></span></td>
+                    <td class="date-month" data-attribute="8-03-2056"><span wicket:id="validity"></span></td>
+                    <td class="d-flex actions">
+                        <div class="d-flex btn-link-group align-items-center justify-content-center w-100">
+                            <a href="#" wicket:id="downloadInvoice" class="btn-link rounded d-flex px-1 py-2 justify-content-between">
+                                <br>
+                                <span class="ml-2 position-absolute"><wicket:message
+                                            key="downloadInvoiceLabel">Facture</wicket:message></span>
+                                <svg class="icon-small mx-2 align-self-center">
+                                    <use href="#icon-download-1"></use>
+                                </svg>
+                            </a>
+                            <div>
+                                <div wicket:id="uploadForm"></div>
+                            </div>
+                            <div wicket:id="editingInvoice">
+                                <img wicket:id="waiting" class="img-responsive center-block" />
+                                <wicket:message key="editingInvoiceLabel">En cours d'édition</wicket:message>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="text-center pt-2 primary-color fadeIn">
+			<a wicket:id="cgvLink" href="#">
+                <wicket:message key="cgvLinkLabel">Conditions Générales de Vente</wicket:message>
+            </a> /
+			<a wicket:id="usageLink"href="#">
+                <wicket:message key="usageLinkLabel">Conditions d'Utilisation</wicket:message>
+            </a>
+		</p>
+	</wicket:panel>
+</body>
+</html>

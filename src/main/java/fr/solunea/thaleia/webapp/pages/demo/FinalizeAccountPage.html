@@ -1,0 +1,125 @@
+<html
+        xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<body>
+<wicket:extend>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="panel panel-gray">
+                <div class="panel-body">
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <img style="width:180px;" wicket:id="panelIcon"/>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <h4>
+                                <wicket:message key="pageTitle">Finalisation du compte</wicket:message>
+                            </h4>
+                        </div>
+                    </div>
+                    <div wicket:id="demoMessage" class="row text-center">
+                        <div class="col-md-12">
+                            <wicket:message key="pageMessage1">Dernière étape pour accéder à
+                                l'essai de 15 jours de Thaleia !
+                            </wicket:message>
+                        </div>
+                    </div>
+                    <div class="row top15">
+                        <div class="col-md-12">
+                            <div wicket:id="feedback" class="text-center"></div>
+                        </div>
+                    </div>
+                    <div class="row top15">
+                        <div class="col-md-12">
+                            <form wicket:id="form" class="form-horizontal" id="form">
+                                <div class="form-group">
+                                    <label for="name" class="col-md-2 control-label">
+                                        <wicket:message key="nameLabel">Nom</wicket:message>
+                                        <div class="required"> *
+                                        </div>
+                                    </label>
+                                    <div class="col-md-10">
+                                        <input id="name" wicket:id="name" type="text" class="form-control"
+                                               required="true"/>
+                                    </div>
+                                </div>
+                                <div class="form-group" wicket:id="passwordGroup">
+                                    <label for="password" class="col-md-2 control-label">
+                                        <wicket:message key="passwordLabel">Mot de passe</wicket:message>
+                                        <div class="required"> *
+                                        </div>
+                                    </label>
+                                    <div class="col-md-10">
+                                        <input id="password" wicket:id="password" type="password" minlength="8"
+                                               class="form-control" required="true"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="company" class="col-md-2 control-label">
+                                        <span wicket:id="companyLabel">Société</span>
+                                        <div class="required"
+                                             wicket:id="companyRequired"> *
+                                        </div>
+                                    </label>
+                                    <div class="col-md-10">
+                                        <input id="company" wicket:id="company" type="text" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone" class="col-md-2 control-label">
+                                        <wicket:message key="phoneLabel">Téléphone</wicket:message>
+                                        <div class="required" wicket:id="phoneRequired"> *
+                                        </div>
+                                    </label>
+                                    <div class="col-md-10">
+                                        <input id="phone" wicket:id="phone" type="text" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="form-group" wicket:id="declarationContainer">
+                                    <div class="col-md-2 control-label">
+                                        <div>
+                                            <input id="declaration" wicket:id="declaration" type="checkbox"
+                                            />&nbsp;<div class="required" style="font-weight:700;">*
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-10">
+                                        <div wicket:id="declarationLabel">J'atteste que bla bla</div>
+                                    </label>
+                                </div>
+                                <div class="row text-center">
+                                    <div class="col-md-12">
+                                        <wicket:message key="pageMessage2">On fait attention aux données
+                                            personnelles.
+                                        </wicket:message>
+                                    </div>
+                                </div>
+                                <div class="row top20">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4">
+                                        <button wicket:id="save" id="submit" type="submit" name="submit"
+                                                class="btn btn-blue btn-block">
+                                            <wicket:message key="saveLabel">Accéder à Thaleia</wicket:message>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N2KWKV4"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+</wicket:extend>
+</body>
+</html>

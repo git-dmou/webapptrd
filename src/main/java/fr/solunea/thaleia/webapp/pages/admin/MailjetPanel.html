@@ -1,0 +1,569 @@
+<wicket:panel xmlns:wicket="http://wicket.apache.org">
+
+    <h1 class="primary-color font-weight-bold gradient-text my-3">
+        <wicket:message key="MailjetApi">API Mailjet</wicket:message>
+    </h1>
+
+
+    <h2 class="my-4 text-nowrap">
+        <wicket:message key="Configuration">Configuration</wicket:message>
+    </h2>
+
+    <div class="card-body input-thaleia">
+        <form wicket:id="configurationForm">
+
+            <h4 class="my-3">
+                <wicket:message key="securityKeys">Clés de sécurité</wicket:message>
+            </h4>
+
+            <div class="alert">
+                <h5>Où trouver les clés API ?</h5>
+                <p>
+                    Les clés API se trouvent dans votre compte Mailjet à l'adresse suivante : https://app.mailjet.com/account/apikeys
+                </p>
+            </div>
+
+            <!--Clé privée Mailjet-->
+            <div class="input-group mb-3 fadeInUp">
+                <div class="input-group-prepend col-3 col-xl-2 pl-0">
+                    <span class="input-group-text font-weight-normal pl-0 ml-3">
+                        <wicket:message key="mailjetApiPrivateKey">Clé privée Mailjet</wicket:message>
+                    </span>
+                </div>
+                <input wicket:id="mailjetApiPrivateKey" type="text" required
+                       class="form-control py-4 px-3 border-0 rounded btn-link fadeIn"
+                       name="mailjetApiPrivateKey">
+            </div>
+
+            <!--Clé publique Mailjet-->
+            <div class="input-group mb-3 fadeInUp">
+                <div class="input-group-prepend col-3 col-xl-2 pl-0">
+                    <span class="input-group-text font-weight-normal pl-0 ml-3">
+                        <wicket:message key="mailjetApiPublicKey">Clé publique Mailjet</wicket:message>
+                    </span>
+                </div>
+                <input wicket:id="mailjetApiPublicKey" type="text" required
+                       class="form-control py-4 px-3 border-0 rounded btn-link fadeIn"
+                       name="mailjetApiPublicKey">
+            </div>
+
+            <h4 class="my-3">
+                <wicket:message key="debug">Debug</wicket:message>
+            </h4>
+
+            <div class="alert">
+                <h5>Que sont les mails de debug ?</h5>
+                <p>
+                    Les mails de debug sont des mails contenant des informations techniques sur les erreurs rencontrées
+                    lors des appels à l'API Mailjet par Thaleia.
+                </p>
+            </div>
+
+            <!--Envoi des mails de debug-->
+            <div class="input-group mb-3 fadeInUp">
+                <div class="input-group-prepend col-3 col-xl-2 pl-0">
+                    <span class="input-group-text font-weight-normal pl-0 ml-3">
+                        <wicket:message key="sendDebugMail">Envoi des mails de debug</wicket:message>
+                    </span>
+                </div>
+                <input wicket:id="sendDebugMail" type="checkbox" required
+                       class="form-control py-4 px-3 border-0 rounded btn-link fadeIn"
+                       name="sendDebugMail">
+            </div>
+
+            <!--Destinataires des mails de debug-->
+            <div class="input-group mb-3 fadeInUp">
+                <div class="input-group-prepend col-3 col-xl-2 pl-0">
+                    <span class="input-group-text font-weight-normal pl-0 ml-3">
+                        <wicket:message key="debugMailRecipients">Destinataires des mails de debug</wicket:message>
+                    </span>
+                </div>
+                <input wicket:id="debugMailRecipients" type="text" required
+                       class="form-control py-4 px-3 border-0 rounded btn-link fadeIn"
+                       name="debugMailRecipients">
+            </div>
+
+            <!--Expéditeur des mails de debug-->
+            <div class="input-group mb-3 fadeInUp">
+                <div class="input-group-prepend col-3 col-xl-2 pl-0">
+                    <span class="input-group-text font-weight-normal pl-0 ml-3">
+                        <wicket:message key="debugMailSender">Expéditeur des mails de debug</wicket:message>
+                    </span>
+                </div>
+                <input wicket:id="debugMailSender" type="text" required
+                       class="form-control py-4 px-3 border-0 rounded btn-link fadeIn"
+                       name="debugMailSender">
+            </div>
+
+            <h4 class="my-3">
+                <wicket:message key="contactsManagement">Gestion des contacts</wicket:message>
+            </h4>
+
+            <div class="alert">
+                <h5>Pourquoi vouloir désactiver la gestion des contacts Mailjet ?</h5>
+                <p>
+                    Seule l'instance de production utilise des comptes de démo. Ces comptes sont inclus dans le processus
+                    de funnel. Cependant, les instances clients n'ont pas l'usage de tels comptes. Il convient donc de
+                    désactiver la gestion des contacts Mailjet sur ces instances.
+                </p>
+            </div>
+
+            <!--Création d'un nouveau contact Mailjet lors de la création d'un compte de démo Thaleia XL-->
+            <div class="input-group mb-3 fadeInUp">
+                <div class="input-group-prepend col-3 col-xl-2 pl-0">
+                    <span class="input-group-text font-weight-normal pl-0 ml-3">
+                        <wicket:message key="registerNewAccountOnAccountCreation">Création d'un nouveau contact Mailjet
+                            lors de la création d'un compte de démo Thaleia XL</wicket:message>
+                    </span>
+                </div>
+                <input wicket:id="registerNewAccountOnAccountCreation" type="checkbox" required
+                       class="form-control py-4 px-3 border-0 rounded btn-link fadeIn"
+                       name="registerNewAccountOnAccountCreation">
+            </div>
+
+            <!--Mise à jour des propriétés du contact lors de la validation du compte de Démo-->
+            <div class="input-group mb-3 fadeInUp">
+                <div class="input-group-prepend col-3 col-xl-2 pl-0">
+                    <span class="input-group-text font-weight-normal pl-0 ml-3">
+                        <wicket:message key="updateContactOnAccountCompletion">Mise à jour des propriétés du contact
+                            lors de la validation du compte de Démo</wicket:message>
+                    </span>
+                </div>
+                <input wicket:id="updateContactOnAccountCompletion" type="checkbox" required
+                       class="form-control py-4 px-3 border-0 rounded btn-link fadeIn"
+                       name="updateContactOnAccountCompletion">
+            </div>
+
+            <h4 class="my-3">
+                <wicket:message key="contactsLists">Listes de contacts</wicket:message>
+            </h4>
+
+
+            <div class="alert">
+                <h5>Où trouver l'identifiant des listes de contacts Mailjet ?</h5>
+                <p>
+                    Ces informations se trouvent dans votre compte Mailjet.<br>
+                    Allez dans "Contacts" puis dans "Mes listes de contacts". Vous y trouverez vos listes de contacts
+                    avec, pour chacune, l'ID de celle-ci.
+                </p>
+            </div>
+
+            <!--Identifiant de la liste de contact `Démo-Thaleia-XL-New-Arch`-->
+            <div class="input-group mb-3 fadeInUp">
+                <div class="input-group-prepend col-3 col-xl-2 pl-0">
+                    <span class="input-group-text font-weight-normal pl-0 ml-3">
+                        <wicket:message key="contactsList.demoThaleiaXL">Identifiant de la liste de contact
+                            `Démo-Thaleia-XL-New-Arch`</wicket:message>
+                    </span>
+                </div>
+                <input wicket:id="contactsList.demoThaleiaXL" type="text" required
+                       class="form-control py-4 px-3 border-0 rounded btn-link fadeIn"
+                       name="contactsList.demoThaleiaXL">
+            </div>
+
+            <!--Identifiant de la liste de contact `newsletter`-->
+            <div class="input-group mb-3 fadeInUp">
+                <div class="input-group-prepend col-3 col-xl-2 pl-0">
+                    <span class="input-group-text font-weight-normal pl-0 ml-3">
+                        <wicket:message key="contactsList.newsletter">Identifiant de la liste de contact `newsletter`
+                        </wicket:message>
+                    </span>
+                </div>
+                <input wicket:id="contactsList.newsletter" type="text" required
+                       class="form-control py-4 px-3 border-0 rounded btn-link fadeIn"
+                       name="contactsList.newsletter">
+            </div>
+
+            <!--Bouton submit-->
+            <div class="d-flex justify-content-end">
+                <button type="submit" wicket:id="configurationFormSubmit"
+                        class="btn-thaleia btn p-4 text-center fadeIn ml-3">
+                    <span class="mr-2 ml-0 mr-md-2 ml-lg-0 mr-lg-2">
+                        Submit
+                    </span>
+                    <span class="ml-0 align-self-center">
+                        <svg class="icon-small">
+                            <use href="#icon-send"></use>
+                        </svg>
+                    </span>
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+
+    <h2 class="my-4 text-nowrap">
+        <wicket:message key="Requetes">Requêtes</wicket:message>
+    </h2>
+
+    <div class="accordion" id="accordionExample">
+
+        <!--Envoi d'email transactionnel-->
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                            data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Envoi d'un mail transactionnel
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div wicket:id="sendTransactionalEmail" class="card-body input-thaleia">
+                    <form wicket:id="sendTransactionalEmailForm">
+
+                        <h4 class="my-3">Expéditeur</h4>
+                        <div class="input-group mb-3 fadeInUp">
+                            <div class="input-group-prepend col-3 col-xl-2 pl-0">
+                                    <span class="input-group-text font-weight-normal pl-0 ml-3">
+                                        Adresse email*
+                                    </span>
+                            </div>
+                            <input wicket:id="senderEmail" type="text" required
+                                   class="form-control py-4 px-3 border-0 rounded btn-link fadeIn"
+                                   name="senderEmail">
+                        </div>
+                        <div class="input-group mb-3 fadeInUp">
+                            <div class="input-group-prepend col-3 col-xl-2 pl-0">
+                                    <span class="input-group-text font-weight-normal pl-0 ml-3">
+                                        Nom
+                                    </span>
+                            </div>
+                            <input wicket:id="senderName" type="text"
+                                   class="form-control py-4 px-3 border-0 rounded btn-link fadeIn"
+                                   name="senderName">
+                        </div>
+
+                        <h4 class="my-3">Destinataire</h4>
+                        <div class="input-group mb-3 fadeInUp">
+                            <div class="input-group-prepend col-3 col-xl-2 pl-0">
+                                    <span class="input-group-text font-weight-normal pl-0 ml-3">
+                                        Adresse email*
+                                    </span>
+                            </div>
+                            <input wicket:id="recipientEmail" type="text" required
+                                   class="form-control py-4 px-3 border-0 rounded btn-link fadeIn"
+                                   name="recipientEmail">
+                        </div>
+                        <div class="input-group mb-3 fadeInUp">
+                            <div class="input-group-prepend col-3 col-xl-2 pl-0">
+                                    <span class="input-group-text font-weight-normal pl-0 ml-3">
+                                        Nom
+                                    </span>
+                            </div>
+                            <input wicket:id="recipientName" type="text"
+                                   class="form-control py-4 px-3 border-0 rounded btn-link fadeIn"
+                                   name="recipientName">
+                        </div>
+
+                        <div class="input-group mb-3 fadeInUp">
+                            <div class="input-group-prepend col-3 col-xl-2 pl-0">
+                                    <span class="input-group-text font-weight-normal pl-0 h2">
+                                        Sujet*
+                                    </span>
+                            </div>
+                            <input wicket:id="subject" type="text"
+                                   class="form-control py-4 px-3 border-0 rounded btn-link fadeIn"
+                                   name="subject" required>
+                        </div>
+
+                        <div class="input-group mb-3 fadeInUp">
+                            <div class="input-group-prepend col-3 col-xl-2 pl-0">
+                                    <span class="input-group-text font-weight-normal pl-0 h2">
+                                        Corps du mail*
+                                    </span>
+                            </div>
+                            <textarea wicket:id="mailBody" class="form-control pt-3 pb-4 px-3" name="Body"
+                                      aria-label="Mail body"
+                                      required>
+                                </textarea>
+                        </div>
+
+                        <!--Bouton submit-->
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" wicket:id="sendTransactionalEmailSubmitBtn"
+                                    class="btn-thaleia btn p-4 text-center fadeIn ml-3">
+                                    <span class="mr-2 ml-0 mr-md-2 ml-lg-0 mr-lg-2">
+                                        Submit
+                                    </span>
+                                <span class="ml-0 align-self-center">
+                                        <svg class="icon-small">
+                                            <use href="#icon-send"></use>
+                                        </svg>
+                                    </span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!--Résultat de la requête-->
+                    <hr>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h4 class="font-weight-bold my-3">Résultat</h4>
+                        <button type="button" href="#" class="btn-thaleia btn p-4 fadeIn error m-2 float-right">
+                                <span class="align-self-center">
+                                    <svg class="icon-small">
+                                        <use href="#icon-trash"></use>
+                                    </svg>
+                                </span>
+                        </button>
+                    </div>
+                    <p wicket:id="result" class="mt-3"></p>
+
+                </div>
+            </div>
+        </div>
+
+        <!--Création d'un contact-->
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                            data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Créer un contact
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div wicket:id="createContact" class="card-body input-thaleia">
+                    <form wicket:id="createContactForm">
+                        <div class="input-group mb-3 fadeInUp">
+                            <div class="input-group-prepend col-auto pl-0">
+                                <span class="input-group-text font-weight-normal pl-0">
+                                    Adresse email
+                                </span>
+                            </div>
+                            <input wicket:id="email" type="text"
+                                   class="form-control py-4 px-3 border-0 rounded btn-link fadeIn"
+                                   name="email" aria-label="Identifiant">
+                        </div>
+
+                        <!--Bouton submit-->
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" wicket:id="createContactFormSubmitBtn"
+                                    class="btn-thaleia btn p-4 text-center fadeIn ml-3">
+                                <span class="mr-2 ml-0 mr-md-2 ml-lg-0 mr-lg-2">
+                                    Submit
+                                </span>
+                                <span class="ml-0 align-self-center">
+                                    <svg class="icon-small">
+                                        <use href="#icon-send"></use>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!--Résultat de la requête-->
+                    <hr>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h4 class="font-weight-bold my-3">Résultat</h4>
+                        <button type="button" href="#" class="btn-thaleia btn p-4 fadeIn error m-2 float-right">
+                            <span class="align-self-center">
+                                <svg class="icon-small">
+                                    <use href="#icon-trash"></use>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                    <p wicket:id="result" class="mt-3"></p>
+
+                </div>
+            </div>
+        </div>
+
+        <!--Mise à jour de propriété d'un contact-->
+        <div class="card">
+            <div class="card-header" id="headingThree">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                            data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Mettre à jour une propriété d'un contact
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div wicket:id="updateContactProperty" class="card-body input-thaleia">
+                    <form wicket:id="updateContactPropertyForm">
+                        <div class="input-group mb-3 fadeInUp">
+                            <div class="input-group-prepend col-3 col-xl-2 pl-0">
+                                <span class="input-group-text font-weight-normal pl-0 ml-3">
+                                    Adresse email*
+                                </span>
+                            </div>
+                            <input wicket:id="email" type="text" required
+                                   class="form-control py-4 px-3 border-0 rounded btn-link fadeIn" name="email">
+                        </div>
+
+                        <div class="input-group mb-3 fadeInUp">
+                            <div class="input-group-prepend col-3 col-xl-2 pl-0">
+                                <span class="input-group-text font-weight-normal pl-0 ml-3">
+                                    Nom de la propriété*
+                                </span>
+                            </div>
+                            <input wicket:id="propertyName" type="text" required
+                                   class="form-control py-4 px-3 border-0 rounded btn-link fadeIn" name="propertyName">
+                        </div>
+
+                        <div class="input-group mb-3 fadeInUp">
+                            <div class="input-group-prepend col-3 col-xl-2 pl-0">
+                                <span class="input-group-text font-weight-normal pl-0 ml-3">
+                                    Nouvelle valeur*
+                                </span>
+                            </div>
+                            <input wicket:id="propertyValue" type="text" required
+                                   class="form-control py-4 px-3 border-0 rounded btn-link fadeIn" name="propertyValue">
+                        </div>
+
+                        <!--Bouton submit-->
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" wicket:id="updateContactPropertyFormSubmitBtn"
+                                    class="btn-thaleia btn p-4 text-center fadeIn ml-3">
+                                <span class="mr-2 ml-0 mr-md-2 ml-lg-0 mr-lg-2">
+                                    Submit
+                                </span>
+                                <span class="ml-0 align-self-center">
+                                    <svg class="icon-small">
+                                        <use href="#icon-send"></use>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!--Résultat de la requête-->
+                    <hr>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h4 class="font-weight-bold my-3">Résultat</h4>
+                        <button type="button" href="#" class="btn-thaleia btn p-4 fadeIn error m-2 float-right">
+                                <span class="align-self-center">
+                                    <svg class="icon-small">
+                                        <use href="#icon-trash"></use>
+                                    </svg>
+                                </span>
+                        </button>
+                    </div>
+                    <p wicket:id="result" class="mt-3"></p>
+                </div>
+            </div>
+        </div>
+
+        <!--Ajouter un contact à une liste de contacts-->
+        <div class="card">
+            <div class="card-header" id="HeadingFour">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                            data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        Ajouter un contact à une liste de contacts
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseFour" class="collapse" aria-labelledby="HeadingFour" data-parent="#accordionExample">
+                <div wicket:id="addContactToList" class="card-body input-thaleia">
+                    <form wicket:id="addContactToListForm">
+                        <div class="input-group mb-3 fadeInUp">
+                            <div class="input-group-prepend col-3 col-xl-2 pl-0">
+                                <span class="input-group-text font-weight-normal pl-0 ml-3">
+                                    Adresse email*
+                                </span>
+                            </div>
+                            <input wicket:id="email" type="text" required
+                                   class="form-control py-4 px-3 border-0 rounded btn-link fadeIn" name="email">
+                        </div>
+
+                        <div class="input-group mb-3 fadeInUp">
+                            <div class="input-group-prepend col-3 col-xl-2 pl-0">
+                                <span class="input-group-text font-weight-normal pl-0 ml-3">
+                                    Identifiant de la liste*
+                                </span>
+                            </div>
+                            <input wicket:id="listID" type="text" required
+                                   class="form-control py-4 px-3 border-0 rounded btn-link fadeIn" name="listID">
+                        </div>
+
+                        <!--Bouton submit-->
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" wicket:id="addContactToListFormSubmitBtn"
+                                    class="btn-thaleia btn p-4 text-center fadeIn ml-3">
+                                <span class="mr-2 ml-0 mr-md-2 ml-lg-0 mr-lg-2">
+                                    Submit
+                                </span>
+                                <span class="ml-0 align-self-center">
+                                    <svg class="icon-small">
+                                        <use href="#icon-send"></use>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!--Résultat de la requête-->
+                    <hr>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h4 class="font-weight-bold my-3">Résultat</h4>
+                        <button type="button" href="#" class="btn-thaleia btn p-4 fadeIn error m-2 float-right">
+                            <span class="align-self-center">
+                                <svg class="icon-small">
+                                    <use href="#icon-trash"></use>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                    <p wicket:id="result" class="mt-3"></p>
+                </div>
+            </div>
+        </div>
+
+        <!--Formulaire vide avec juste un bouton pour les tests de dev-->
+        <div class="card">
+            <div class="card-header" id="headingFive">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                            data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                        Dummy form
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                <div wicket:id="dummy" class="card-body input-thaleia">
+                    <form wicket:id="dummyForm">
+                        <!--Bouton submit-->
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" wicket:id="dummyFormSubmitBtn"
+                                    class="btn-thaleia btn p-4 text-center fadeIn ml-3">
+                                <span class="mr-2 ml-0 mr-md-2 ml-lg-0 mr-lg-2">
+                                    Submit
+                                </span>
+                                <span class="ml-0 align-self-center">
+                                    <svg class="icon-small">
+                                        <use href="#icon-send"></use>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!--Résultat de la requête-->
+                    <hr>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h4 class="font-weight-bold my-3">Résultat</h4>
+                        <button type="button" href="#" class="btn-thaleia btn p-4 fadeIn error m-2 float-right">
+                            <span class="align-self-center">
+                                <svg class="icon-small">
+                                    <use href="#icon-trash"></use>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                    <p wicket:id="result" class="mt-3"></p>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</wicket:panel>

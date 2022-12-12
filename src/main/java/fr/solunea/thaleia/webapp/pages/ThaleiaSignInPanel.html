@@ -1,0 +1,95 @@
+<!doctype html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+    <meta charset="utf-8">
+    <title>ThaleiaSignInPanel</title>
+</head>
+<body>
+<wicket:panel>
+
+    <div wicket:id="background" class="w-100 position-absolute h-100 overflow-hidden">Background</div>
+
+    <div wicket:id="feedback" class="position-absolute top-0 w-100 z-index-1 padding-navbar"></div>
+    <div class="d-flex fh-100 minh-100 align-items-stretch justify-content-center flex-row padding-navbar">
+        <div class="d-flex flex-column align-items-center justify-content-center m-auto delayed p-3 p-lg-5">
+            <form wicket:id="signInForm" class="form-signin delayed px-5 py-5 col-12 w-100 d-flex flex-column justify-content-center">
+                <img wicket:id="thaleia-logo" class="img-fluid icon-logo mb-4 mx-auto fadeIn">
+                <p wicket:id="signIn" class="mb-4 font-weight-light text-center fadeIn">
+                    Connectez-vous
+                </p>
+                <div class="input-thaleia mb-3 delayed fadeIn">
+                    <label wicket:id="usernameLabel" for="inputEmail" class="sr-only">
+                        Adresse email
+                    </label>
+                    <input wicket:id="username" type="text" id="inputEmail" required
+                           class="form-control py-4 px-3 fadeIn" placeholder="Email address" autofocus="">
+                    <label wicket:id="passwordLabel" for="inputPassword" class="sr-only">
+                        Mot de passe
+                    </label>
+                    <input wicket:id="password" type="password" id="inputPassword" required
+                           class="form-control mt-2 py-4 px-3 fadeIn" placeholder="Password">
+                </div>
+
+                <div wicket:id="rememberMeRow"class="custom-control custom-checkbox mb-3 fadeIn">
+                    <input wicket:id="rememberMe" type="checkbox" class="custom-control-input" id="customCheck1">
+                    <label class="custom-control-label cursor-pointer" for="customCheck1">
+                        <p wicket:id="rememberMeLabel" class="m-0 pt-1 font-weight-light small">Se rappeler de moi</p>
+                    </label>
+                </div>
+
+                <button wicket:id="submitButton" class="letter-spacing-1 btn-thaleia btn p-4 text-center fadeIn d-flex justify-content-between btn-block mb-2 btn-submit" type="submit">
+                    <div wicket:id="signInButton" class="mr-2 ml-0 mr-md-2 ml-lg-0 mr-lg-3">
+                        Sign in
+                    </div>
+                    <span class="ml-0 ml-md-2 ml-lg-3 align-self-center">
+					<svg class="icon-small">
+						<use href="#icon-arrow-r"></use>
+					</svg>
+				</span>
+                </button>
+
+                <a wicket:id="passwordReset" href="" class="m-0 font-weight-light small fadeIn">
+                    <span wicket:id="passwordResetLabel">Mot de passe oublié ?</span>
+                </a>
+
+                <div wicket:id="accountCreationPanel" class="mt-4 text-center fadeIn">
+                    <a wicket:id="accountCreation" href="" class="font-weight-light">
+                        <span wicket:id="accountCreationLabel">Créer un compte</span>
+                    </a>
+                </div>
+            </form>
+            <script>
+                $(document).ready(function() {
+                    $('#submitButton2').on('click', function () {
+                        $('.form-control').each(function(index,$input){
+                            if($($input).val()=="" && $($input).prop('required'))
+                            {
+                                $($input).css('border','1px solid red');
+                            }
+                            else
+                            {
+                                $($input).css('border','none');
+                            }
+                        });
+                    });
+                });
+
+            </script>
+<!--            <div wicket:id="googleSignInPanel"/>-->
+            <!--<button class="btn-thaleia btn p-4 text-center fadeIn d-flex justify-content-between btn-block close-tuto mt-3" type="submit">
+                <div class="mr-2 ml-0 mr-md-2 ml-lg-0 mr-lg-3">
+                    Sign in with Google
+                </div>
+                <span class="ml-0 ml-md-2 ml-lg-3 align-self-center">
+                    <svg class="icon-small">
+                        <use href="#icon-google"></use>
+                    </svg>
+                </span>
+            </button>-->
+        </div>
+    </div>
+
+
+</wicket:panel>
+</body>
+</html>

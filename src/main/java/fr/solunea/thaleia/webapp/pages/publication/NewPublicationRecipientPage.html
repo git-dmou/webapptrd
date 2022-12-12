@@ -1,0 +1,48 @@
+<html
+        xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<body>
+<wicket:extend>
+    <div class="w-100 d-flex flex-column align-items-stretch justify-content-between padding-navbar">
+        <span wicket:id="feedback"></span>
+        <div id="plugin-content" class="container align-self-center p-3 p-lg-5 m-auto delayed">
+            <wicket:message key="helpFirstLine">Texte d'aide</wicket:message>
+            <h1 class="bd-title mb-4"><span wicket:id="title">XXXX</span></h1>
+            <p>
+                <wicket:message key="help">Texte d'aide</wicket:message>
+            </p>
+            <form wicket:id="form" class="mt-4">
+                <wicket:message key="emailLabel">Adresse(s) mail</wicket:message>
+                <textarea wicket:id="rawContent"
+                          class="rounded form-control py-4 px-3 border-0 btn-link fadeIn w-100"></textarea>
+
+                <div class="text-center mt-4 mt-lg-4 mt-xl-5 delayed">
+                    <button type="submit" name="submit" wicket:id="cancel"
+                            class="btn-thaleia btn p-4 text-center fadeIn m-2 ng-scope">
+						<span class="mr-2 ml-0 mr-md-2 ml-lg-0 mr-lg-3">
+							<wicket:message key="cancelLabel">Annuler</wicket:message>
+						</span>
+                        <span class="ml-0 ml-md-2 ml-lg-3 align-self-center">
+							<svg class="icon-small">
+								<use href="#icon-close"></use>
+							</svg>
+						</span>
+                    </button>
+                    <button wicket:id="save" type="submit" name="submit"
+                            class="btn-thaleia btn error p-4 text-center fadeIn m-2 ng-scope">
+						<span class="mr-2 ml-0 mr-md-2 ml-lg-0 mr-lg-3">
+							<wicket:message key="saveLabel">Enregistrer</wicket:message>
+						</span>
+                        <span class="ml-0 ml-md-2 ml-lg-3 align-self-center">
+							<svg class="icon-small">
+								<use href="#icon-new"></use>
+							</svg>
+						</span>
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</wicket:extend>
+</body>
+</html>

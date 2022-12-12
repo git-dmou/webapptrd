@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html
+        xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title></title>
+</head>
+<body>
+<wicket:panel>
+
+    <nav id="navbar" class="navbar navbar-expand navbar-dark fixed-top bg-dark p-0 thaleia-xl">
+
+        <!--Home button-->
+        <a class="navbar-brand pl-3 font-weight-light d-none d-md-flex"
+           href="https://www.solunea.fr/">
+            <svg style="width: 85px;margin-bottom: 5px;">
+                <use href="#icon-solunea"></use>
+            </svg>
+        </a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto font-weight-light">
+                <!--Locale selector-->
+                <span wicket:id="localeSelectorPanel">Locale selector</span>
+            </ul>
+        </div>
+    </nav>
+
+</wicket:panel>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<html
+	xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<body>
+	<wicket:panel>
+		<span wicket:id="feedback"></span>
+		<form wicket:id="form">
+			<table>
+				<thead>
+					<tr>
+						<th><span wicket:id="nameLabel">Propriété</span></th>
+						<th><span wicket:id="hiddenLabel">Cachée</span></th>
+						<th><span wicket:id="associatedLabel">Associée</span></th>
+					</tr>
+				</thead>
+				<tbody wicket:id="objects">
+					<tr>
+						<td><span wicket:id="name"></span></td>
+						<td><input wicket:id="hidden" type="checkbox"></input></td>
+						<td><input wicket:id="associated" type="checkbox"></input></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<input wicket:id="save" type="submit" value="Enregistrer" /> <input
+				wicket:id="cancel" type="submit" value="Annuler" />
+
+		</form>
+	</wicket:panel>
+</body>
+</html>

@@ -1,0 +1,153 @@
+﻿<!doctype html>
+<html
+	xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<head>
+<meta charset="utf-8">
+</head>
+<body>
+	<wicket:panel>
+		<div style="display:none">
+			<div class="calendar_value" wicket:id="listDays">
+				<div>
+					<span wicket:id="dayLabel"></span>
+					<span wicket:id="dayValue"></span>
+				</div>
+			</div>
+		</div>
+		<canvas id="accessGraph" height="120" style="width:100%;"></canvas>
+		<script type="text/javascript">
+			var accessValuesList = [];
+			var canvas = document.getElementById("accessGraph");
+			$(document).ready(function(){
+				$(".calendar_value").each(function(){
+					var spans = $(this).find("span");
+					var day = spans.get(0).innerHTML;
+					var value = parseInt(spans.get(1).innerHTML);
+					accessValuesList.push({day:day,value:value});
+				});
+				drawAccessGraph();
+			});
+
+			function drawAccessGraph(){
+				var ctx = canvas.getContext("2d");
+				canvas.width = parseInt($(canvas).css("width"));
+				var maxGraphWidth = canvas.width - 20;
+				var maxGraphHeight = 93;
+				ctx.clearRect(0,canvas.width,0,canvas.height);
+				//tracé des lignes de fond
+				ctx.beginPath();
+				ctx.moveTo(30,10);
+				ctx.lineTo(maxGraphWidth,10);
+				ctx.moveTo(30,57);
+				ctx.lineTo(maxGraphWidth,57);
+				ctx.moveTo(30,103);
+				ctx.lineTo(maxGraphWidth,103);
+				ctx.strokeStyle = "#E3E4E8";
+				ctx.stroke();
+
+				//Limites (entre 0 et la plus grande valeur + 10)
+				var max = 0;
+				for (var i = accessValuesList.length - 1; i >= 0; i--) {
+					if (accessValuesList[i].value > max){
+						max = accessValuesList[i].value;
+					}
+				};
+				max += 10;
+				ctx.font="10px Arial";
+				ctx.fillText(max,10,13);
+				ctx.fillText(Math.round(max/2),10,60);
+				ctx.fillText(0,10,106);
+
+				//Espacement et valeur X de départ
+				var spacing = maxGraphWidth / accessValuesList.length;
+				var startXValue = ((maxGraphWidth + 30) / 2) - ((spacing * (accessValuesList.length - 1)) / 2);
+
+				//dates
+				ctx.beginPath();
+				var currentXPos = startXValue;
+				for (var i = accessValuesList.length - 1; i >= 0; i--) {
+					var date = accessValuesList[i].day;
+					ctx.fillText(date,currentXPos - 15,115);
+					//Le curseur
+					ctx.moveTo(currentXPos,99);
+					ctx.lineTo(currentXPos,103);
+					currentXPos += spacing;
+				};
+				ctx.stroke();
+
+				//Points
+				var currentXPos = startXValue;
+				for (var i = accessValuesList.length - 1; i >= 0; i--) {
+					ctx.beginPath();
+					ctx.fillStyle = "#F2CD5E";
+					var value = accessValuesList[i].value;
+					var valuePercent = (value * 100) / max; 
+					var valueY = (valuePercent * maxGraphHeight) / 100;
+					valueY = 103 - valueY;
+					ctx.arc(currentXPos,valueY,3,0,2*Math.PI);
+					currentXPos += spacing;
+					ctx.fill();
+				};
+
+				//Traits entre les points
+				var currentXPos = startXValue;
+				ctx.beginPath();
+				ctx.strokeStyle = "#F2CD5E";
+				for (var i = accessValuesList.length - 1; i >= 0; i--) {
+					var value = accessValuesList[i].value;
+					var valuePercent = (value * 100) / max; 
+					var valueY = (valuePercent * maxGraphHeight) / 100;
+					valueY = 103 - valueY;
+					if(i == accessValuesList.length - 1){
+						ctx.moveTo(currentXPos,valueY);
+					} else {
+						ctx.lineTo(currentXPos,valueY);
+					}
+					currentXPos += spacing;
+				};
+				ctx.stroke();
+
+				//Bulles au dessus des points
+				var currentXPos = startXValue;
+				for (var i = accessValuesList.length - 1; i >= 0; i--) {
+					var value = accessValuesList[i].value;
+					var valuePercent = (value * 100) / max; 
+					var valueY = (valuePercent * maxGraphHeight) / 100;
+					valueY = 103 - valueY;
+					var cornerRadius = 6;
+					var rectX = currentXPos - 10;
+					var rectY = valueY - 20;
+					var rectWidth = 20;
+					var rectHeight = 15;
+					textPopup(ctx,rectX,rectY,rectWidth,rectHeight,cornerRadius,value);
+					currentXPos += spacing;
+				};
+
+				setTimeout(drawAccessGraph,100);
+			}
+
+			function textPopup(ctx, x, y, width, height, radius, text) {
+				ctx.fillStyle = "#F6F5F4";
+				ctx.strokeStyle = "#E3E4E8";
+				ctx.beginPath();
+				ctx.moveTo(x + radius, y);
+				ctx.lineTo(x + width - radius, y);
+				ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+				ctx.lineTo(x + width, y + height - radius);
+				ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+				ctx.lineTo(x + radius, y + height);
+				ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+				ctx.lineTo(x, y + radius);
+				ctx.quadraticCurveTo(x, y, x + radius, y);
+				ctx.closePath();
+				ctx.stroke();
+				ctx.fill();      
+				ctx.fillStyle = "#000";
+				ctx.font="10px Arial";
+				ctx.textAlign = 'center';
+				ctx.fillText(text,x+10,y+10); 
+			}
+		</script>
+	</wicket:panel>
+</body>
+</html>

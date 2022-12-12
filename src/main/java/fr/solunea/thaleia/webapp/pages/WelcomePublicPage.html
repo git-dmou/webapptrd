@@ -1,0 +1,40 @@
+<!doctype html>
+<html xmlns:wicket="http://wicket.apache.org">
+<head>
+	<meta charset="utf-8">
+	<title>ThaleiaSignInPanel</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link wicket:id="bootstrap.min.css" rel="stylesheet">
+	<!-- to fix the nav -->
+	<style type="text/css">
+		body {
+			position: relative;
+			padding-top: 60px;
+		}
+	</style>
+	<link wicket:id="bootstrap-responsive.min.css" rel="stylesheet">
+</head>
+<body>
+	<wicket:extend>
+	<div class="row top40">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<img wicket:id="logo" />
+				</div>
+			</div>
+			<div class="row top30">
+				<div class="col-md-12 text-center text-white text-light">
+					<h2><wicket:message key="baseline">Produisez, Publiez, Analysez rapidement</wicket:message></h2>
+				</div>
+			</div>
+			<div class="row top40">
+				<div class="col-md-12 text-center text-semibold">
+					<a class="btn btn-blue" href="#" wicket:id="link"><wicket:message key="linkLabel">Accéder à Thaleia</wicket:message></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</wicket:extend>
+</body>
+</html>

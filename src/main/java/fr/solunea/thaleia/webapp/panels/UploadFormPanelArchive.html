@@ -1,0 +1,107 @@
+<html
+	xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<body>
+	<wicket:head>
+		<script type="text/javascript">
+			function uploadProcessing() {
+				//document.getElementById('progress').style['display'] = 'inline';
+				document.getElementById('maxSizeLabel').style['display'] = 'none';
+				document.getElementById('uploadFormPanelForm').style['display'] = 'none';
+			}
+
+			$(document)
+					.ready(
+							function() {
+								if (window.File && window.FileList
+										&& window.FileReader) {
+									$("#filedrop")
+											.get(0)
+											.addEventListener(
+													"dragover",
+													function(e) {
+														e.stopPropagation();
+														e.preventDefault();
+														$(".btn-submitfile")
+																.html(
+																		$(
+																				".labeldrop")
+																				.html());
+													}, false);
+									$("#filedrop")
+											.get(0)
+											.addEventListener(
+													"dragleave",
+													function(e) {
+														e.stopPropagation();
+														e.preventDefault();
+														$(".btn-submitfile")
+																.html(
+																		$(
+																				".labelclick")
+																				.html());
+													}, false);
+									$("#filedrop")
+											.get(0)
+											.addEventListener(
+													"drop",
+													function(e) {
+														e.stopPropagation();
+														e.preventDefault();
+														var files = e.target.files
+																|| e.dataTransfer.files;
+														$("#fileInput").get(0).files = files;
+														$(".btn-submitfile")
+																.html(
+																		$(".labelclick").html());
+														}, false);
+								}
+							});
+		</script>
+		<style type="text/css">
+#uploadFormPanelForm input.upload {
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 20px;
+	cursor: pointer;
+	opacity: 0;
+	filter: alpha(opacity = 0);
+	visibility: hidden;
+}
+
+.btn.sharp {
+	border-radius: 0;
+	padding: 14px 45px;
+	background: #5D9CEC;
+	color: #fff;
+	font-size: 1em;
+	transition: all .4s;
+	cursor: pointer;
+	text-shadow: none;
+}
+</style>
+	</wicket:head>
+
+	<wicket:panel>
+		<div id="filedrop">
+			<form id="uploadFormPanelForm" wicket:id="uploadForm">
+				<input type="file" class="upload" wicket:id="fileInput"
+					id="fileInput" onchange="uploadProcessing();" />
+			</form>
+			<button style="width:100%;" class="btn-thaleia btn p-4 text-center fadeIn btn-submitfile"
+				onclick="$('#uploadFormPanelForm .upload').click(); return false;">
+				<span><wicket:message key="defaultButtonLabel"></wicket:message></span>
+			</button>
+			<span style="display: none" class="labelclick"
+				wicket:id="buttonLabel">Libell� du bouton de s�lection</span> <span
+				style="display: none" class="labeldrop" wicket:id="buttonLabelDrop">Libell�
+				du bouton de s�lection
+			</span>
+		</div>
+		<p class="file-return"></p>
+		<span wicket:id="progressbar">[[upload progressbar]]</span>
+	</wicket:panel>
+</body>
+</html>

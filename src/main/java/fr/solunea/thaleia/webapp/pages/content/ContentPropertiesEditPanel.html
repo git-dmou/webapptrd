@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html
+	xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+</head>
+<body>
+	<wicket:panel>
+		<ul class="nav nav-tabs">
+			<li wicket:id="locales"><a href="#" wicket:id="link"><span
+					wicket:id="name"></span></a></li>
+		</ul>
+
+		<form wicket:id="form" class="form-horizontal top20">
+			<div class="form-group" wicket:id="objects">
+				<label class="col-md-4 control-label">
+					<span wicket:id="property.name"></span>
+				</label>
+				<div class="col-md-8">
+					<div class="row">
+						<div class="col-md-6">
+							<input type="text" wicket:id="value" class="form-control"></input>
+						</div>
+						<div class="col-md-6">
+							<div class="row">
+								<div wicket:id="colDownload" class="col-md-4">
+									<div class="row">
+										<button class="btn btn-blue-sm" wicket:id="downloadBtn">
+											<span wicket:id="downloadLabel">Télécharger</span>
+										</button>											
+									</div>
+								</div>
+								<div wicket:id="colUpload" class="col-md-8">
+									<div wicket:id="uploadForm"></div>
+								</div>
+							</div>							
+						</div>
+					</div>					
+				</div>
+			</div>	
+		</form>
+	</wicket:panel>
+</body>
+</html>

@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html
+        xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title></title>
+</head>
+<body>
+<wicket:panel>
+    <div class="position-fixed top-0 start-0 end-0 bottom-0 overflow-hidden pointer-none">
+        <div class="position-absolute top-0 start-0 translate-middle">
+            <svg class="bg-image">
+                <use href="#bg-circle"></use>
+            </svg>
+        </div>
+        <div class="position-absolute top-50 start-100 translate-middle">
+            <svg class="bg-image">
+                <use href="#bg-triangle"></use>
+            </svg>
+        </div>
+        <div class="position-absolute bottom-5 end-5">
+            <svg style="width:25px;">
+                <use href="#triangle"></use>
+            </svg>
+        </div>
+        <div class="position-absolute top-100 start-0 translate-middle">
+            <svg class="bg-image">
+                <use href="#bg-square"></use>
+            </svg>
+        </div>
+    </div>
+    <div wicket:id="feedback" class="position-absolute top-0 w-100 z-index-1 text-center"></div>
+    <div class="d-flex fh-100 minh-100 align-items-stretch justify-content-center flex-row padding-navbar">
+        <div class="d-flex flex-column align-items-center justify-content-center m-auto delayed p-3 p-lg-5">
+            <img class="img-fluid icon-logo mb-4 mx-auto fadeIn" wicket:id="panelIcon"/>
+            <h4 class="mt-3 primary-color font-weight-bold gradient-text fadeIn" wicket:id="pageTitle">Créer un
+                compte</h4>
+            <div wicket:id="demoMessageDiv" class="text-center font-weight-light mb-0 fadeIn">
+                <p wicket:id="demoMessage">Essayez Thaleia gratuitement pendant 15 jours !</p>
+            </div>
+            <form wicket:id="form"
+                  class="form-signin delayed px-5 py-4 col-12 w-100 d-flex flex-column justify-content-center fadeIn">
+                <div class="input-thaleia mb-3 delayed fadeIn">
+                    <label for="mail" class="sr-only">
+                        <wicket:message key="mailLabel">Adresse e-mail</wicket:message>
+                    </label>
+                    <input id="mail" wicket:id="mail" required autofocus value type="text"
+                           class="letter-spacing-1 form-control py-4 px-3 fadeIn"/>
+                </div>
+                <p class="small fadeIn" style="max-width:500px">
+                    <wicket:message key="pageMessage2">On fait attention aux données
+                        personnelles.
+                    </wicket:message>
+                </p>
+                <div class="custom-control custom-checkbox mb-3 fadeIn" wicket:id="legalLabelContainer">
+                    <input wicket:id="legal" type="checkbox" name="legal" class="custom-control-input"
+                           id="customCheck2">
+                    <label class="custom-control-label cursor-pointer" for="customCheck2">
+                        <p class="m-0 pt-1 font-weight-light small">
+                            <wicket:message key="legalLabel">Conditions d'utilisation</wicket:message>
+                            <a wicket:id="legalUrl" href="" target="_blank">
+                                <wicket:message key="legalLinkLabel">lien</wicket:message>
+                            </a>
+                        </p>
+                    </label>
+                </div>
+                <button wicket:id="save" type="submit" name="submit"
+                        class="letter-spacing-1 btn-thaleia btn p-4 text-center fadeIn d-flex justify-content-between btn-block mb-2">
+                    <div class="mr-2 ml-0 mr-md-2 ml-lg-0 mr-lg-3">
+                        <wicket:message key="saveLabel">Créer le compte</wicket:message>
+                    </div>
+                    <span class="ml-0 ml-md-2 ml-lg-3 align-self-center">
+                        <svg class="icon-small">
+                        <use href="#icon-new"></use>
+                        </svg>
+                    </span>
+                </button>
+            </form>
+        </div>
+    </div>
+</wicket:panel>
+</body>
+</html>

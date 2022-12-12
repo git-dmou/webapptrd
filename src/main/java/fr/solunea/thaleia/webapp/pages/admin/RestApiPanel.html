@@ -1,0 +1,391 @@
+<html
+        xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<body>
+<wicket:panel>
+
+    <div wicket:id="rootUrl" hidden="hidden" id="rootUrl"></div>
+
+
+    <div class="panel panel-default">
+        <div class="panel-heading">/api/v1/login</div>
+        <div class="panel-body">
+            <form id="loginForm"
+                  action=""
+                  method="get">
+                <div class="input-group">
+                    <label for="user">User </label><input type="text" class="form-control" placeholder="User"
+                                                          id="user">
+                </div>
+                <div class="input-group">
+                    <label for="password">Password </label><input type="password" class="form-control"
+                                                                  placeholder="Password" id="password">
+                </div>
+                <input class="btn btn-blue-sm" type="submit" value="GET"/>
+            </form>
+        </div>
+        <div class="panel-footer">
+            <div id="loginResult">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div id="loginResultCode"></div>
+                    </div>
+                    <div class="panel-body">
+                        <div id="loginResultBody">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            let form = document.getElementById('loginForm');
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+                let loginHeaders = new Headers();
+                for (let i = 0; i < form.length; ++i) {
+                    if (form[i].id) {
+                        loginHeaders.append(form[i].id, form[i].value);
+                    }
+                }
+                fetch($("#rootUrl").text() + '/api/v1/login', {
+                    method: 'get',
+                    headers: loginHeaders
+                    // body: JSON.stringify({name: form.formName.value, email: form.formEmail.value})
+                }).then(function (response) {
+                    // return response.json();
+                    return response;
+                }).then(function (data) {
+                    $('#loginResultCode').html(data.statusText);
+                    return data.text()
+                }).then(function (responseText) {
+                    $('#loginResultBody').html(responseText);
+                }).catch(function (err) {
+                    $('#loginResultCode').html("Error");
+                    $('#loginResultBody').html(err);
+                });
+            });
+        </script>
+    </div>
+
+    <style type="text/css">
+        .glyphicon.spinning {
+            animation: spin 1s infinite linear;
+            -webkit-animation: spin2 1s infinite linear;
+        }
+
+        @keyframes spin {
+            from {
+                transform: scale(1) rotate(0deg);
+            }
+            to {
+                transform: scale(1) rotate(360deg);
+            }
+        }
+
+        @-webkit-keyframes spin2 {
+            from {
+                -webkit-transform: rotate(0deg);
+            }
+            to {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+    </style>
+    <div class="panel panel-default">
+        <div class="panel-heading">/api/v1/transform</div>
+        <div class="panel-body">
+            <form id="transformForm" enctype="multipart/form-data"
+                  action=""
+                  method="post">
+                <div class="input-group">
+                    <label for="transformToken">Token</label>
+                    <input type="text" id="transformToken" required/>
+                </div>
+                <div class="input-group">
+                    <label for="transformFile">File to transform</label>
+                    <input id="transformFile" name="transformFile" type="file" required/>
+                </div>
+                <div class="input-group">
+                    <label for="transformType">Type</label>
+                    <select id="transformType" required>
+                        <option value="cannelle">cannelle</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="transformLocale">Locale</label>
+                    <select id="transformLocale">
+                        <option value=""></option>
+                        <option value="en">en</option>
+                        <option value="fr">fr</option>
+                    </select>
+                </div>
+                <!--                <input class="btn btn-blue-sm" type="submit" value="Send"/>-->
+            </form>
+            <button class="btn btn-blue-sm" type="submit" form="transformForm" id="transformSubmit">
+                <span id="transformLoading">
+                    <span class="glyphicon glyphicon-refresh spinning"></span>
+                    Loading...
+                </span>
+                <span id="transformLoaded">POST</span>
+            </button>
+        </div>
+        <div class="panel-footer">
+            <div id="transformResult">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div id="transformResultCode"></div>
+                    </div>
+                    <div class="panel-body">
+                        <div id="transformResultBody">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $("#transformLoading").hide();
+
+            $("#transformForm").on("submit", function (event) {
+                event.preventDefault();
+                $("#transformLoaded").hide();
+                $("#transformLoading").show();
+                document.getElementById('transformSubmit').disabled = true;
+
+                let filename = "result.zip";
+
+                let input = document.getElementById('transformFile');
+                let data = new FormData()
+                data.append('file', input.files[0]);
+
+                let form = document.getElementById('transformForm');
+                let url = $("#rootUrl").text() + "/api/v1/transform?type=" + form[2].value;
+                if (form[3].value) {
+                    url = url + "&locale=" + form[3].value;
+                }
+                fetch(url, {
+                    method: 'POST',
+                    body: data,
+                    headers: new Headers({
+                        'Authorization': $("#transformToken").val(),
+                        'Accept': 'application/json, application/xml, text/plain, text/html, *.*'
+                    })
+                }).then(response => {
+                    if (!response.ok) {
+                        return response.json().then(data => {
+                            return Promise.reject({
+                                reason: JSON.stringify(data), meta: {
+                                    url, error: response.statusText, status:
+                                    response.status
+                                }
+                            });
+                        });
+                    } else {
+                        let disposition = response.headers.get('Content-Disposition');
+                        if (disposition && disposition.indexOf('attachment') !== -1) {
+                            const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                            const matches = filenameRegex.exec(disposition);
+                            if (matches != null && matches[1]) {
+                                filename = matches[1].replace(/['"]/g, '');
+                            }
+                        }
+                        $('#transformResultCode').html(response.status);
+                        return response;
+                    }
+                }).then(response => response.blob()).then(function (blob) {
+                    if (blob) {
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.style.display = 'none';
+                        a.href = url;
+                        if (blob.type === "application/zip") {
+                            a.download = filename;
+                            document.body.appendChild(a);
+                            a.click();
+                            window.URL.revokeObjectURL(url);
+                            $('#transformResultBody').html("Downloaded " + filename + " : " + blob.size + " bytes");
+                        } else {
+                            $('#transformResultBody').html(blob);
+                        }
+                    } else {
+                        return Promise.reject({
+                            reason: 'Download error.', meta: {
+                                url, error: 'Download error.', status:
+                                    '?'
+                            }
+                        });
+                    }
+                    $("#transformLoaded").show();
+                    $("#transformLoading").hide();
+                    document.getElementById('transformSubmit').disabled = false;
+                }).catch(function (err) {
+                    $('#transformResultCode').html(err.meta.status);
+                    $('#transformResultBody').html(err.reason);
+                    $("#transformLoaded").show();
+                    $("#transformLoading").hide();
+                    document.getElementById('transformSubmit').disabled = false;
+                });
+            });
+        </script>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">/api/v1/tempdirs</div>
+        <div class="panel-body">
+            <form id="tempdirListForm"
+                  action=""
+                  method="get">
+                <div class="input-group">
+                    <label for="tempdirListToken">Token</label>
+                    <input type="text" id="tempdirListToken" required/>
+                </div>
+                <input class="btn btn-blue-sm" type="submit" value="GET"/>
+            </form>
+            <form id="tempDirExportForm"
+                  action=""
+                  method="get">
+                <div class="input-group">
+                    <label for="tempDirExportToken">Token</label>
+                    <input type="text" id="tempDirExportToken" required/>
+                </div>
+                <div class="input-group">
+                    <label for="tempDirExportId">tempdirId</label>
+                    <input type="text" id="tempDirExportId" required/>
+                </div>
+                <div class="input-group">
+                    <label for="tempDirExportFormat">Format</label>
+                    <select id="tempDirExportFormat" required>
+                        <option value="zip">zip</option>
+                    </select>
+                </div>
+            </form>
+            <button class="btn btn-blue-sm" type="submit" form="tempDirExportForm" id="tempDirExportFormSubmit">
+                <span id="tempDirExportLoading">
+                    <span class="glyphicon glyphicon-refresh spinning"></span>
+                    Loading...
+                </span>
+                <span id="tempDirExportLoaded">GET</span>
+            </button>
+        </div>
+        <div class="panel-footer">
+            <div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div id="tempdirResultCode"></div>
+                    </div>
+                    <div class="panel-body">
+                        <div id="tempdirResultBody">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            // Code pour le formulaire de list des tempdirs
+            let tempdirListForm = document.getElementById('tempdirListForm');
+            tempdirListForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                fetch($("#rootUrl").text() + '/api/v1/tempdirs', {
+                    method: 'get',
+                    headers: new Headers({
+                        'Authorization': $("#tempdirListToken").val(),
+                        'Accept': 'application/json, application/xml, text/plain, text/html, *.*'
+                    })
+                }).then(function (response) {
+                    // return response.json();
+                    return response;
+                }).then(function (data) {
+                    $('#tempdirResultCode').html(data.statusText);
+                    return data.text()
+                }).then(function (responseText) {
+                    $('#tempdirResultBody').html(responseText);
+                }).catch(function (err) {
+                    $('#tempdirResultCode').html("Error");
+                    $('#tempdirResultBody').html(err);
+                });
+            });
+
+            // Code pour le formulaire de téléchargement d'un tempdir
+            $("#tempDirExportLoading").hide();
+            $("#tempDirExportForm").on("submit", function (event) {
+                event.preventDefault();
+                $("#tempDirExportLoaded").hide();
+                $("#tempDirExportLoading").show();
+                document.getElementById('tempDirExportFormSubmit').disabled = true;
+
+                let filename = "result.zip";
+
+                fetch($("#rootUrl").text() + '/api/v1/tempdirs/' + $("#tempDirExportId").val() + '/export?format='+$("#tempDirExportFormat").val(), {
+                    method: 'get',
+                    headers: new Headers({
+                        'Authorization': $("#tempDirExportToken").val(),
+                        'Accept': 'application/json, application/xml, text/plain, text/html, *.*'
+                    })
+                }).then(response => {
+                    if (!response.ok) {
+                        return response.json().then(data => {
+                            return Promise.reject({
+                                reason: JSON.stringify(data), meta: {
+                                    url, error: response.statusText, status:
+                                    response.status
+                                }
+                            });
+                        });
+                    } else {
+                        let disposition = response.headers.get('Content-Disposition');
+                        if (disposition && disposition.indexOf('attachment') !== -1) {
+                            const filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                            const matches = filenameRegex.exec(disposition);
+                            if (matches != null && matches[1]) {
+                                filename = matches[1].replace(/['"]/g, '');
+                            }
+                        }
+                        $('#tempdirResultCode').html(response.status);
+                        return response;
+                    }
+                }).then(response => response.blob()).then(function (blob) {
+                    if (blob) {
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.style.display = 'none';
+                        a.href = url;
+                        if (blob.type === "application/zip") {
+                            a.download = filename;
+                            document.body.appendChild(a);
+                            a.click();
+                            window.URL.revokeObjectURL(url);
+                            $('#tempdirResultBody').html("Downloaded " + filename + " : " + blob.size + " bytes");
+                        } else {
+                            $('#tempdirResultBody').html(blob);
+                        }
+                    } else {
+                        return Promise.reject({
+                            reason: 'Download error.', meta: {
+                                url, error: 'Download error.', status:
+                                    '?'
+                            }
+                        });
+                    }
+                    $("#tempDirExportLoaded").show();
+                    $("#tempDirExportLoading").hide();
+                    document.getElementById('tempDirExportFormSubmit').disabled = false;
+                }).catch(function (err) {
+                    if (typeof err.meta !== 'undefined' && typeof err.meta.status !== 'undefined') {
+                        $('#tempdirResultCode').html(err.meta.status);
+                    } else {
+                        $('#tempdirResultCode').html('');
+                    }
+                    if (typeof err.reason !== 'undefined') {
+                        $('#tempdirResultBody').html(err.reason);
+                    } else {
+                        $('#tempdirResultBody').html('Error');
+                    }
+                    $("#tempDirExportLoaded").show();
+                    $("#tempDirExportLoading").hide();
+                    document.getElementById('tempDirExportFormSubmit').disabled = false;
+                });
+            });
+        </script>
+    </div>
+
+</wicket:panel>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<wicket:head xmlns:wicket="http://wicket.apache.org">
+    <script type="text/javascript">
+        function uploadProcessing() {
+            //document.getElementById('progress').style['display'] = 'inline';
+            document.getElementById('maxSizeLabel').style['display'] = 'none';
+            document.getElementById('uploadFormPanelForm').style['display'] = 'none';
+        }
+
+        $(document).ready(function () {
+            if (window.File && window.FileList && window.FileReader) {
+                $("#filedrop").get(0).addEventListener("dragover", function (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    $("#inputLabel").html($("#buttonLabelDrop").html());
+                }, false);
+                $("#filedrop").get(0).addEventListener("dragleave", function (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    $("#inputLabel").html($("#buttonLabel").html());
+                }, false);
+                $("#filedrop").get(0).addEventListener("drop", function (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    var files = e.target.files || e.dataTransfer.files;
+                    $("#fileInput").get(0).files = files;
+                    $("#inputLabel").html($("#buttonLabel").html());
+                }, false);
+            }
+        });
+    </script>
+</wicket:head>
+
+<wicket:panel xmlns:wicket="http://wicket.apache.org">
+
+    <!-- Panel Importer personnalisation -->
+    <div id="filedrop"
+         class="d-flex align-items-center justify-content-between panel featured py-md-5 py-4 pl-3 pl-md-4 pl-lg-3 pr-md-3 rounded mb-0 mb-xl-2 fadeIn">
+        <div class="col col-lg col-xl-auto pl-lg-4 pl-md-2 pl-0">
+            <h3>
+                <wicket:message key="importYourCustomisation">Importer votre personnalisation</wicket:message>
+            </h3>
+            <span wicket:id="buttonLabel" class="labelclick d-none">Libellé du bouton de sélection</span>
+            <span wicket:id="buttonLabelDrop" class="labeldrop d-none">Libellé du bouton de sélection</span>
+            <button type="button" class="btn btn-thaleia p-4 mt-3 position-relative">
+                <span>
+                    <wicket:message key="defaultButtonLabel">Parcourir</wicket:message>
+                </span>
+                <span class="ml-3">
+                    <svg class="icon-small">
+                        <use href="#icon-folder"></use>
+                    </svg>
+                </span>
+                <form wicket:id="uploadForm" id="uploadFormPanelForm">
+                    <input wicket:id="fileInput" id="fileInput" class="h-100 border-0 file-upload"
+                           type="file" name="file_uploads" multiple
+                           onchange="uploadProcessing();">
+                </form>
+            </button>
+        </div>
+        <div class="col-5 col-lg-5 mb-lg-4 mb-xl-5">
+            <img wicket:id="illustrationPersonnalisation" class="image-featured">
+        </div>
+    </div>
+    <span wicket:id="progressbar">[[upload progressbar]]</span>
+
+</wicket:panel>

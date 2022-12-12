@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirection</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="text/javascript">
+        function go() {
+            var form = document.createElement('form');
+            form.method = 'post';
+            form.action = "##REDIRECT_URL##";
+
+            {
+                var hiddenField = document.createElement('input');
+                hiddenField.type = 'hidden';
+                hiddenField.name = '##THALEIA_USER_EMAIL_HEADER##';
+                hiddenField.value = '##THALEIA_USER_EMAIL##';
+                form.appendChild(hiddenField);
+            }
+            {
+                var hiddenField = document.createElement('input');
+                hiddenField.type = 'hidden';
+                hiddenField.name = '##THALEIA_API_TOKEN_HEADER##';
+                hiddenField.value = '##THALEIA_API_TOKEN##';
+                form.appendChild(hiddenField);
+            }
+            {
+                var hiddenField = document.createElement('input');
+                hiddenField.type = 'hidden';
+                hiddenField.name = '##THALEIA_INTERNAL_SIGNIN_HEADER##';
+                hiddenField.value = '##THALEIA_INTERNAL_SIGNIN##';
+                form.appendChild(hiddenField);
+            }
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+
+        window.onload = go;
+    </script>
+</head>
+<body>
+
+</body>
+</html>

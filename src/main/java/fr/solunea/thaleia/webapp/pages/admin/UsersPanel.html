@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html
+        xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title></title>
+</head>
+<body>
+<wicket:panel>
+    <!--Filter by name-->
+    <form wicket:id="form" class="input-group input-thaleia fadeIn z-index-1">
+
+        <input wicket:id="filter" id="inputSearch" class="form-control py-4 border-0 rounded search btn-link"
+               type="text" required="required" aria-label="Text input with segmented dropdown button" placeholder="User Login : taper '%' pour afficher la liste complète">
+       <svg wicket:id="search" class="icon-search align-self-center">
+            <use href="#icon-search"></use>
+       </svg>
+    </form>
+
+
+    <div class="table-wrapper">
+        <table class="table table-thaleia">
+            <thead>
+            <tr>
+                <th><wicket:message key="user.head">Utilisateur</wicket:message></th>
+                <th><wicket:message key="id.head">Identifiant</wicket:message></th>
+                <th><wicket:message key="lastLogin.head">Dernier accès</wicket:message></th>
+                <th><wicket:message key="domain.head">Domaine</wicket:message></th>
+                <th><wicket:message key="domains.head">Domaines visibles</wicket:message></th>
+                <th><wicket:message key="expire.head">Expiration</wicket:message></th>
+                <th><wicket:message key="licence.head">Licence</wicket:message></th>
+                <th><wicket:message key="generated.contents">Contenus générés</wicket:message></th>
+                <th><wicket:message key="size.head">Taille des publications</wicket:message></th>
+                <th>
+                    <wicket:message key="totalSize.head">Taille totale</wicket:message>
+                    <span
+                            class="top" wicket:message="title:totalSize.tooltip"><i
+                            class="icon-question-sign"></i></span></th>
+                <th>
+                    <wicket:message key="totalPublicationCredits.head">Crédits de publication</wicket:message>
+                    <span
+                            class="top" wicket:message="title:totalPublicationCredits.tooltip"><i
+                            class="icon-question-sign"></i></span></th>
+                <th style="min-width:170px;">
+                    <wicket:message key="action.head">Actions</wicket:message>
+                </th>
+            </tr>
+            </thead>
+            <tbody wicket:id="objects">
+            <tr>
+                <td><span wicket:id="name"></span></td>
+                <td><span wicket:id="login"></span></td>
+                <td><span wicket:id="lastAccess"></span></td>
+                <td><span wicket:id="domain.name"></span></td>
+                <td><span wicket:id="accessibleDomainsModal"></span>
+                    <div class="d-flex btn-link-group align-items-center justify-content-center w-100">
+                        <a class="btn-link rounded d-flex px-1 py-2 align-items-center justify-content-between"
+                           wicket:id="showAccessibleDomainsModal" type="button">
+                            <br>
+                            <span class="ml-2 position-absolute">
+                    <wicket:message
+                            key="accessibleDomains.show">Voir
+                    </wicket:message>
+                    </span>
+                            <svg class="icon-small mx-2 align-self-center">
+                                <use href="#icon-preview"></use>
+                            </svg>
+                        </a>
+                    </div>
+                </td>
+                <td><span class="top" wicket:message="title:expired"><i
+                        wicket:id="expirationIcon" class="icon-thumbs-down"></i></span> <span
+                        wicket:id="expiration"></span></td>
+                <td><i wicket:id="noLicenceIcon" class="icon-thumbs-down"></i>
+                    <span wicket:id="licence"></span></td>
+                <td><span wicket:id="generatedContents"></span></td>
+                <td><span wicket:id="size"></span></td>
+                <td><span wicket:id="totalSize"></span></td>
+                <td><span wicket:id="publicationCredits"></span></td>
+                <td class="actions">
+                    <div class="d-flex btn-link-group align-items-center justify-content-center w-100">
+                        <a class="btn-link rounded d-inline-flex px-1 py-2 align-items-center justify-content-between"
+                           wicket:id="delete" type="button">
+                            <span class="ml-2 position-absolute" wicket:id="delete.text">Delete</span>
+                            <svg class="icon-small mx-2 align-self-center">
+                                <use href="#icon-trash"></use>
+                            </svg>
+                        </a>
+                        <a class="btn-link rounded d-inline-flex px-1 py-2 align-items-center justify-content-between"
+                           wicket:id="edit" type="button">
+                            <span class="ml-2 position-absolute" wicket:id="edit.text">Modifier</span>
+                            <svg class="icon-small mx-2 align-self-center">
+                                <use href="#icon-edit"></use>
+                            </svg>
+                        </a>
+                        <a class="rounded d-inline-flex px-1 py-2 align-items-center justify-content-between"
+                           wicket:id="cleanVersions" wicket:message="title:cleanVersions" type="button">
+                            <span class="mx-2 mb-2 icon-small align-self-center">&#129529;</span>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="btn-group my-3">
+        <button type="button" class="btn btn-thaleia btn text-center fadeIn p-3 my-2" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+            <wicket:message key="new.demo.text">Créer un compte avec licence</wicket:message>
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+            <li wicket:id="createAccountWithLicenceLinks">
+                <a class="btn" wicket:id="createAccountWithLicenceLink" href="#">
+                    <div wicket:id="createAccountWithLicenceText">Démo Thaleia XL</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <span wicket:id="licencesPanel"></span>
+</wicket:panel>
+</body>
+</html>

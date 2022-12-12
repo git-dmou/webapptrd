@@ -1,0 +1,105 @@
+<html
+	xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<body>
+	<wicket:extend>
+		<h4>Test de l'édition des contenus.</h4>
+		<form method="post" action="editcontent/action" target="_blank">
+			<fieldset>
+				<legend>Ouvrir un contenu</legend>
+				<div>
+					<label for="do">do</label> <input type="text" name="do"
+						value="open" readonly="readonly" />
+				</div>
+				<div>
+					<label for="contentid">contentid</label> <input type="text"
+						name="contentid" value="1830" />
+				</div>
+				<div>
+					<label for="editedproperty">editedproperty</label> <input
+						type="text" name="editedproperty" value="A7Content" />
+				</div>
+				<div>
+					<label for="locale">locale</label> <input type="text" name="locale"
+						value="fr" />
+				</div>
+				<div>
+					<input type="submit" value="Lancer">
+				</div>
+			</fieldset>
+		</form>
+		<br />
+
+		<form method="post" action="editcontent/action" target="_blank">
+			<fieldset>
+				<legend>Fermer un contenu</legend>
+				<div>
+					<label for="do">do</label> <input type="text" name="do"
+						value="close" readonly="readonly" />
+				</div>
+				<div>
+					<label for="contentid">contentid</label> <input type="text"
+						name="editedcontentid" value="" />
+				</div>
+				<div>
+					<label for="save">save</label> <input type="checkbox" name="save"
+						value="true" />
+				</div>
+				<div>
+					<input type="submit" value="Lancer">
+				</div>
+			</fieldset>
+		</form>
+
+		<form method="post" action="editcontent/action" target="_blank"
+			enctype="multipart/form-data">
+			<fieldset>
+				<legend>Enregistrer un fichier dans un contenu</legend>
+				<div>
+					<label for="do">do</label> <input type="text" name="do"
+						value="save" readonly="readonly" />
+				</div>
+				<div>
+					<label for="editedcontentid">editedcontentid</label> <input
+						type="text" name="editedcontentid" value="" />
+				</div>
+				<div>
+					<label for="path">path</label> <input type="text" name="path"
+						value="" />
+				</div>
+				<div>
+					<label for="transform">transform</label> <input type="text"
+						name="transform" value="" />
+				</div>
+				<div>
+					<label for="file">Fichier</label> <input type="file" name="file" />
+				</div>
+				<div>
+					<input type="submit" value="Lancer">
+				</div>
+			</fieldset>
+		</form>
+
+		<form method="post" action="editcontent/action" target="_blank">
+			<fieldset>
+				<legend>Supprimer un fichier du contenu</legend>
+				<div>
+					<label for="do">do</label> <input type="text" name="do"
+						value="delete" readonly="readonly" />
+				</div>
+				<div>
+					<label for="contentid">contentid</label> <input type="text"
+						name="editedcontentid" value="" />
+				</div>
+				<div>
+					<label for="filename">filename</label> <input type="text"
+						name="filename" value="" />
+				</div>
+				<div>
+					<input type="submit" value="Lancer">
+				</div>
+			</fieldset>
+		</form>
+		<br />
+	</wicket:extend>
+</body>
+</html>

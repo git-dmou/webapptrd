@@ -1,0 +1,25 @@
+<html
+        xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<body>
+<wicket:panel>
+    <section id="users">
+        <h2 class="my-4 text-nowrap">
+            <wicket:message key="usersLabel">Gestion des utilisateurs</wicket:message>
+        </h2>
+
+        <a wicket:id="checkDiskUsage" class="btn btn-thaleia btn text-center fadeIn p-3 my-2">
+            <wicket:message key="checkDiskUsage"></wicket:message>
+        </a>
+        <br/>
+        <table class="table table-thaleia table-hover" wicket:id="domainsPanel">panneau de gestion des
+            domaines
+        </table>
+        <br/>
+        <div wicket:id="usersPanel">panneau d'édition des
+            utilisateurs
+        </div>
+
+    </section>
+</wicket:panel>
+</body>
+</html>

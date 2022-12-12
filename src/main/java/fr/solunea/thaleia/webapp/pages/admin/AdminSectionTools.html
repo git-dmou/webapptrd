@@ -1,0 +1,77 @@
+<html
+        xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<body>
+<wicket:panel>
+    <section id="tools">
+        <h2 class="my-4 text-nowrap">
+            <wicket:message key="toolsLabel">Outils d'administration</wicket:message>
+        </h2>
+        <div wicket:id="checkUsagePanel">
+            panneau d'usage des ressourcessur le serveur
+        </div>
+        <a href="#" wicket:id="editContentLink" class="btn btn-thaleia btn text-center fadeIn my-2 p-4">
+            <wicket:message key="editContentLabel">Edition des contenus</wicket:message>
+            <span class="ml-0 ml-md-2 ml-lg-3 align-self-center">
+                <svg class="icon-small">
+                    <use href="#icon-edit"></use>
+                </svg>
+            </span>
+        </a>
+
+        <div wicket:id="resetPanel">panneau de remise à zéro</div>
+        <br/>
+
+        <a wicket:id="cleanVersions" class="btn btn-thaleia btn text-center fadeIn my-2 p-4">
+            <wicket:message key="cleanVersionsLabel">
+                Supprimer les anciennes versions des contenus
+            </wicket:message>
+        </a>
+        <div wicket:id="frontendsPanel">Gestion des frontaux</div>
+        <br/>
+        <br/>
+        <div wicket:id="cannelleScreensUsageReportPanel">Rapport d'usage des écrans Thaleia XL</div>
+        <br/>
+        <br/>
+        <h2 class="mt-4">
+            <wicket:message key="activeSessionsLabel">Sessions actives</wicket:message>
+        </h2>
+        <br>
+        <div class="table-wrapper">
+            <table class="table table-thaleia">
+                <thead>
+                <tr>
+                    <th>
+                        <wicket:message key="startDate">Ouverture</wicket:message>
+                    </th>
+                    <th>
+                        <wicket:message key="lastActive">Dernière action</wicket:message>
+                    </th>
+                    <th>
+                        <wicket:message key="size">Taille</wicket:message>
+                    </th>
+                    <th>
+                        <wicket:message key="totalTimeTaken">Temps CPU consommé</wicket:message>
+                    </th>
+                    <th>
+                        <wicket:message key="info">Informations</wicket:message>
+                    </th>
+                </tr>
+                </thead>
+                <tbody wicket:id="sessions">
+                <tr>
+                    <td><span wicket:id="startDate"></span></td>
+                    <td><span wicket:id="lastActive"></span></td>
+                    <td><span wicket:id="sessionSize"></span></td>
+                    <td><span wicket:id="totalTimeTaken"></span></td>
+                    <td><span wicket:id="sessionInfo"></span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <br/> <br/>
+        <div wicket:id="versionPanel">panneau de numéro de version</div>
+
+    </section>
+</wicket:panel>
+</body>
+</html>

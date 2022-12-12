@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout>
+                <Pattern>%highlight{[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c:%L - %msg%n%throwable}</Pattern>
+            </PatternLayout>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="fr.solunea.thaleia.service.utils.xapi" additivity="false"
+                level="trace">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="fr.solunea" additivity="false" level="trace">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="com.cooldatasoft" additivity="false" level="info">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="org.apache.jsp" additivity="false" level="info">
+            <AppenderRef ref="console"/>
+        </Logger>
+<!--                <Logger name="org.apache.cayenne" additivity="false" level="warn">-->
+        <Logger name="org.apache.cayenne" additivity="false" level="debug">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="org.apache.wicket" additivity="false" level="info">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="org.apache.wicket.protocol.http.RequestLogger" additivity="false" level="error">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="org.apache.wicket.resource.PropertiesFactory" additivity="false" level="error">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <!--<Logger name="org.apache.wicket.core.util.resource" additivity="false" level="debug">-->
+        <!--<AppenderRef ref="console"/>-->
+        <!--</Logger>-->
+        <Logger name="org.apache.http.wire" additivity="false" level="info">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="org.apache.commons.httpclient" additivity="false" level="info">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="httpclient.wire.header" additivity="false" level="info">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="org.apache.catalina.core" additivity="false" level="info">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="org.wicketstuff.rest.annotations" additivity="false" level="trace">
+            <AppenderRef ref="console"/>
+        </Logger>
+
+        <Root level="debug">
+            <AppenderRef ref="console"/>
+        </Root>
+    </Loggers>
+</Configuration>

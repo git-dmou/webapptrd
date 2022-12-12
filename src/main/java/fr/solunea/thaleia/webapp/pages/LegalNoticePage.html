@@ -1,0 +1,236 @@
+﻿<!doctype html>
+<html
+	xmlns:wicket="http://git-wip-us.apache.org/repos/asf/wicket/repo?p=wicket.git;a=blob_plain;f=wicket-core/src/main/resources/META-INF/wicket-1.5.xsd;hb=master">
+<head>
+<meta charset="utf-8">
+<title>Test LegalNoticePage</title>
+</head>
+<body>
+	<wicket:extend>
+		<div class="container">
+
+			<h2><wicket:message key="termsOfUse.title">
+				Conditions d'Utilisation
+			</wicket:message></h2>
+			<p><wicket:message key="termsOfUse.text">
+				Solunea désigne la société à responsabilité limitée SOLUNEA,
+				dont le siège social est situé 28 rue Jean Reboul 30900 Nîmes,
+				enregistrée au registre du commerce et des sociétés sous le numéro
+				487 952 343. Son capital social est de 10 000 €. Numéro de TVA
+				intracommunautaire : FR68487952343. Le responsable de la publication
+				est Monsieur Yann Lescurat. Numéro de téléphone : 04 66 68 28 81.
+				Adresse email : contact@solunea.fr
+			</wicket:message></p>
+
+			<h3><wicket:message key="descriptionOfTheService.title">
+				Description du service
+			</wicket:message></h3>
+			<p><wicket:message key="descriptionOfTheService.text.0">
+				Le Service en ligne Thaleia (le Service) est mis à disposition
+				par Solunea, et permet à un utilisateur de produire, de diffuser et
+				de consulter des contenus numériques (les Contenus). Les Contenus
+				sont stockés et transmis de manière immatérielle, sous forme de
+				fichiers numériques ou de contenus numériques diffusés en ligne.
+				L’Offre Commerciale proposée concerne un accès au Service sous la
+				forme d’un ensemble de fonctions mises à disposition en ligne, pour
+				une période dont la durée est déterminée. L’accès au Service se fait
+				par une interface web mise à disposition sur internet par Solunea.
+				L’accès au Service suppose que le Client possède les moyens
+				techniques d’accéder au serveur web exploité par Solunea qui
+				constitue le point d’accès au Service, et qu’il prenne à sa charge
+				les frais d’accès au réseau et de communication nécessaires.
+			</wicket:message></p>
+
+			<p><wicket:message key="descriptionOfTheService.text.1">
+				L’utilisation du Service vaut son acceptation des présentes
+				conditions d’utilisation. Tout manquement aux conditions
+				d’utilisation constaté par Solunea pourra conduire à la cessation
+				immédiate et sans préavis de la mise à disposition du Service, de
+				plein droit, sans remboursement, sans pénalité ni sans qu’aucun
+				préjudice de son fait ne puisse être reconnu.
+			</wicket:message></p>
+
+			<h3><wicket:message key="personnalAccount.title">
+				Compte personnel
+			</wicket:message></h3>
+			<p><wicket:message key="personnalAccount.text">
+				L’accès au Service se fait par un compte personnel, non
+				cessible et nominatif, protégé par un mot de passe. Le Client
+				s’engage à assurer la sécurité et la confidentialité de son mot de
+				passe, et ne pas transmettre à un tiers ses paramètres d’accès au
+				Service. Le client peut à tout moment modifier son mot de passe.
+				Celui-ci n’est pas connu de Solunea.
+			</wicket:message></p>
+
+			<h3><wicket:message key="demonstrationAccess.title">
+				 Accès de démonstration
+			</wicket:message></h3>
+			<p><wicket:message key="demonstrationAccess.text.0">
+				Pour les besoins d’évaluation du Service par le Client,
+				Solunea peut mettre à disposition une Offre Commerciale de
+				démonstration, donnant accès à tout ou partie du Service, pour une
+				période dont la durée est déterminée.
+			</wicket:message></p>
+            <p><wicket:message key="demonstrationAccess.text.1">
+                L’utilisation du Service dans le cadre de cette Offre Commerciale de démonstration est soumise aux
+                mêmes conditions d’utilisation.
+            </wicket:message></p>
+
+			<h3><wicket:message key="intellectualProperty.title">
+				Propriété intellectuelle
+			</wicket:message></h3>
+			<p><wicket:message key="intellectualProperty.text.0">
+				Le Client s’engage à n’utiliser le Service que dans le cadre
+				de l’assemblage de contenus numériques dont il a le droit d’usage.
+				Il s’engage également à ne pas mettre en ligne ou diffuser des
+				contenus qu’il n’est pas légalement autorisé à utiliser ou détenir,
+				ou que Solunea n’est pas légalement autorisé à utiliser ou détenir
+				pour fournir le Service.
+			</wicket:message></p>
+            <p><wicket:message key="intellectualProperty.text.1">
+                À l’exception du Contenu que le Client
+                soumet dans le cadre du Service, le Contenu est la propriété de
+                Solunea. Pour ces fichiers, Solunea concède un droit de copie,
+                d’usage et de diffusion au Client, pour le monde entier, limité dans
+                le temps à la période de validité de l’accès au Service Thaleia par
+                ce Client, telle que définie dans l’Offre Commerciale à laquelle il
+                a souscrit. À l’issue de la période de validité de son accès au
+                Service, le Client s’engage à ne plus copier, utiliser, diffuser le
+                Contenu Solunea. La soumission de Contenu par le client au Service
+                n’est pas associée à un transfert de propriété de ces Contenus à
+                Solunea : le client reste propriétaire de ses propres Contenus.
+            </wicket:message></p>
+
+			<h3><wicket:message key="terminationOfAccess.title">
+				Résiliation de l’accès
+			</wicket:message></h3>
+			<p><wicket:message key="terminationOfAccess.text.0">
+				Le droit d’accès du Client au Service prend fin à l’issue de
+				la période de l’Offre Commerciale à laquelle le Client a souscrit.
+			</wicket:message></p>
+            <p><wicket:message key="terminationOfAccess.text.1">
+                Dans le cas où l’accès n’est pas renouvelé, le compte du Client peut
+                être résilié, et Solunea n’est pas tenu de conserver les données
+                associées.
+            </wicket:message></p>
+            <p><wicket:message key="terminationOfAccess.text.2">
+                Il incombe donc au Client de prendre ses dispositions
+                avant la fin de son accès au Service. Le Client peut décider de
+                résilier son accès au Service avant la fin de la période de validité
+                de l’Offre Commerciale à laquelle il a souscrit, sans prétendre à un
+                remboursement, partiel ou total, des sommes versées pour l’accès au
+                Service.
+            </wicket:message></p>
+            <p><wicket:message key="terminationOfAccess.text.3">
+                Aucun dommage direct ou indirect n’ouvrira droit à
+                réparation par Solunea dans le cas de la résiliation d’un compte
+                d’accès au Service.
+            </wicket:message></p>
+
+			<h3><wicket:message key="responsibility.title">
+				Responsabilité
+			</wicket:message></h3>
+			<p><wicket:message key="responsibility.text.0">
+				La responsabilité de Solunea est limitée aux engagements pris
+				en application de l’Offre Commerciale et ne saurait être engagée en
+				raison notamment: (i) des dommages dus à l'inexécution, totale ou
+				partielle, de ses obligations par le Client, (ii) des dommages
+				directs ou indirects découlant de l'utilisation ou des performances
+				du Service subis par le Client et (iii) plus généralement d'un
+				quelconque dommage indirect. En particulier, les parties conviennent
+				expressément que tout préjudice financier ou commercial (par exemple
+				perte de données, perte de bénéfices, perte d'exploitation, perte de
+				Clientèle ou de commandes, manque à gagner, trouble commercial
+				quelconque) ou toute action dirigée contre le Client par un tiers,
+				constitue un dommage indirect et n'ouvre pas droit à réparation par
+				Solunea.
+			</wicket:message></p>
+            <p><wicket:message key="responsibility.text.1">
+                Dans le cadre de la mise à disposition du Service, Solunea
+                intervient en qualité d’hébergeur de contenus. À ce titre, Solunea
+                n’est tenue à aucune obligation générale de surveillance de tout
+                contenu soumis ou diffusé via le Service.
+            </wicket:message></p>
+            <p><wicket:message key="responsibility.text.2">
+                Le Service est fourni par
+                Solunea en l’état, et n’accorde aucune garantie à cet égard. En
+                particulier, Solunea ne garantit pas que : (i) l’utilisation du
+                Service réponde aux besoins du Client, (ii) l’utilisation du Service
+                se déroule sans interruption ou erreur, (iii) tous les défauts de
+                fonctionnement seront corrigés.
+            </wicket:message></p>
+
+			<h3><wicket:message key="evolutionOfTheService.title">
+				Évolution du Service
+			</wicket:message></h3>
+			<p><wicket:message key="evolutionOfTheService.text.0">
+				Solunea fait évoluer en permanence son Service Thaleia, dans
+				le but d’augmenter ses fonctionnalités, d’améliorer son usage, et de
+				corriger des disfonctionnements.
+			</wicket:message></p>
+            <p><wicket:message key="evolutionOfTheService.text.1">
+                Le Client reconnait et accepte que
+                la forme et la nature du Service puisse être modifié de temps à
+                autre, sans notification préalable.
+            </wicket:message></p>
+
+			<h3><wicket:message key="userSupport.title">
+				Support à l’utilisation
+			</wicket:message></h3>
+			<p><wicket:message key="userSupport.text">
+				Les conditions d’accès au support d’utilisation du Service
+				sont définies dans l’Offre Commerciale. Solunea ne propose pas
+				d’autre support à son Service que celui précisé expressément dans
+				son Offre Commerciale.
+			</wicket:message></p>
+
+			<h3><wicket:message key="personalData.title">
+				Données personnelles
+			</wicket:message></h3>
+			<p><wicket:message key="personalData.text.0">
+				Solunea stocke dans ses bases de données des données
+				nominatives concernant le Client. Les informations recueillies font
+				l’objet d’un traitement informatique destiné à suivre les demandes
+				de démonstration, les accès des Clients et utilisateurs au Service,
+				les commandes, les factures. Les destinataires des données
+				concernant les accès aux contenus sont les propriétaires de ces
+				contenus. Les destinataires des données concernant les clients sont
+				les employés de Solunea ou de ses sous-traitants affectés à
+				l’exploitation du Service. Ces données ne sont pas transmises à des
+				tiers par Solunea. Ce traitement automatisé d'informations a fait
+				l'objet d’une déclaration à la CNIL sous le numéro 1874022.
+			</wicket:message></p>
+            <p><wicket:message key="personalData.text.1">
+                Conformément à la loi « informatique et libertés » du 6 janvier 1978
+                modifiée en 2004, vous bénéficiez d’un droit d’accès et de
+                rectification aux informations qui vous concernent, que vous pouvez
+                exercer en vous adressant au siège social de Solunea. Vous pouvez
+                également, pour des motifs légitimes, vous opposer au traitement des
+                données vous concernant.
+            </wicket:message></p>
+
+			<h3><wicket:message key="modificationOfConditions.title">
+				Modification des conditions
+			</wicket:message></h3>
+			<p><wicket:message key="modificationOfConditions.text">
+				Solunea se réserve le droit de modifier ses conditions
+				d’utilisation, par exemple pour les adapter aux modifications
+				législatives et réglementaires, ou aux modifications de l’offre
+				fonctionnelle et commerciale de son Service. Il incombe au Client de
+				consulter régulièrement les conditions d’utilisation, publiées sur
+				le site du Service. S’il n’accepte pas les nouvelles conditions, il
+				doit cesser d’utiliser le Service. Continuer d’utiliser le Service
+				au-delà de la date de publication des nouvelles conditions vaudra
+				acceptation de ces nouvelles conditions.
+			</wicket:message></p>
+            <p style="font-style: italic"><wicket:message key="editionDate">
+                General Terms as of July 1st 2015.
+            </wicket:message></p>
+				<br/>
+				<br/>
+				<br/>
+
+		</div>
+	</wicket:extend>
+</body>
+</html>
