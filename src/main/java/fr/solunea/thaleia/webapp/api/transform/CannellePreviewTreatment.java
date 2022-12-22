@@ -13,6 +13,6 @@ public class CannellePreviewTreatment extends AbstractCannelleTreatment<String> 
      */
     @Override
     public String transform(Object input, User user, Locale locale) throws DetailedException {
-        return invokeCannelleMethod(input, user, locale, "preview");
+        return invokeCannelleMethod(input, user, locale, "preview", "", "");
     }
 }

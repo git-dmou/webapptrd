@@ -17,6 +17,6 @@ public class CannelleImportTreatment extends AbstractCannelleTreatment<ContentVe
      */
     @Override
     public ContentVersion transform(Object input, User user, Locale locale) throws DetailedException {
-        return invokeCannelleMethod(input, user, locale, "generateFromSource");
+        return invokeCannelleMethod(input, user, locale, "generateFromSource","","");
     }
 }

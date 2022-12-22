@@ -4,17 +4,20 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import fr.solunea.thaleia.model.ApiToken;
+import fr.solunea.thaleia.model.ContentProperty;
+import fr.solunea.thaleia.model.ContentPropertyValue;
 import fr.solunea.thaleia.model.ContentVersion;
-import fr.solunea.thaleia.model.dao.ContentVersionDao;
-import fr.solunea.thaleia.model.dao.ICayenneContextService;
+import fr.solunea.thaleia.model.dao.*;
 import fr.solunea.thaleia.service.ContentService;
 import fr.solunea.thaleia.service.TempFilesService;
 import fr.solunea.thaleia.service.utils.Configuration;
 import fr.solunea.thaleia.utils.DetailedException;
 import fr.solunea.thaleia.webapp.ThaleiaApplication;
+import fr.solunea.thaleia.webapp.api.transform.CannelleTranslationTreatment;
 import fr.solunea.thaleia.webapp.api.transform.ITransformTreatment;
 import fr.solunea.thaleia.webapp.api.transform.TransformTreatmentFactory;
 import fr.solunea.thaleia.webapp.utils.Downloader;
+import org.apache.cayenne.ObjectContext;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -27,6 +30,7 @@ import org.apache.wicket.protocol.http.mock.MockHttpServletRequest;
 import org.wicketstuff.rest.annotations.MethodMapping;
 import org.wicketstuff.rest.annotations.ResourcePath;
 import org.wicketstuff.rest.annotations.parameters.HeaderParam;
+import org.wicketstuff.rest.annotations.parameters.RequestBody;
 import org.wicketstuff.rest.annotations.parameters.RequestParam;
 import org.wicketstuff.rest.utils.http.HttpMethod;
 
@@ -47,6 +51,9 @@ public class TransformAPI extends ApiV1Service {
     private final static Logger logger = Logger.getLogger(TransformAPI.class);
 
     private TempFilesService tempFilesService;
+    private String origLanguage = "";
+    private String targetLanguage = "";
+    private String contentVersionId = "";
 
     public TransformAPI(ICayenneContextService contextService, Configuration configuration) {
         super(contextService, configuration);
@@ -58,17 +65,209 @@ public class TransformAPI extends ApiV1Service {
     }
 
     /**
+     *
+     * @param token             : le token d'identification pour le compte qui va effectuer ce traitement.
+     * @param localeString      : Optionnel. Localisation des éventuels messages d’erreur dans la réponse à cet appel.
+     * @param localFilePath     : Optionnel. Localisation des éventuels messages d’erreur dans la réponse à cet appel.
+     * @param translateInfo     : informations pour la traduction
+     *                            - origLanguage
+     *                            - targetLanguage
+     *                            - contentVersionId : PK de la content_version à traduire, afin de récupérer le dossier contenant le ficher XL source
+     * @return
+     */
+    @MethodMapping(value = "/translate", httpMethod = HttpMethod.POST)
+    @SuppressWarnings("unused")
+    public Object translate(@HeaderParam("Authorization") String token,
+                            @HeaderParam("Content-Type") String contentType,
+                            @RequestParam(value = "locale", required = false) String localeString,
+                            @RequestParam(value = "", required = false) String localFilePath
+                            , @RequestBody TranslateInfo translateInfo) {
+
+        logger.debug("Appel reçu pour l'API : Transform/translate.");
+
+//        String type = "cannelle_translate_module";
+
+        if (contentType.isEmpty() || !contentType.equals("application/json")) {
+            setResponseStatusCode(415);
+            return null;
+        }
+
+        // utilisation de variables d'instances
+        // si pas de traduction, les valeurs par défaut "", sont utilisées par les autres traitements
+        // sinon utilisation des info pour la traduction
+        this.origLanguage = translateInfo.origLanguage;
+        this.targetLanguage = translateInfo.targetLanguage;
+        this.contentVersionId = translateInfo.contentVersionId;
+
+        JsonObject error = checkParameters(translateInfo, "Impossible de traduire le contenu de contentVersionId = " + translateInfo.contentVersionId);
+        if (error != null) {
+            return error;
+        }
+
+        return translateTRT(token, "cannelle_translate_module", localeString, localFilePath, translateInfo);
+    }
+
+
+    /**
      * @param token         le token d'identification pour le compte qui va effectuer ce traitement.
      * @param type          le type de traitement : {@link fr.solunea.thaleia.webapp.api.transform.TransformTreatmentFactory}
      * @param localeString  : Optionnel. Localisation des éventuels messages d’erreur dans la réponse à cet appel.
      * @param localFilePath : Uniquement pour les tests unitaires Java, afin d'appeler cette méthode sans envoyer une requête POST.
      *                      Ce paramètre n'est pas récupéré dans les requêtes POST, mais permet de faire référence à un fichier source local.
      */
+//    @MethodMapping(value = "/transform", httpMethod = HttpMethod.POST)
     @MethodMapping(value = "", httpMethod = HttpMethod.POST)
     @SuppressWarnings("unused")
     public Object transform(@HeaderParam("Authorization") String token, @RequestParam(value = "type") String type
-            , @RequestParam(value = "locale", required = false) String localeString, @RequestParam(value = "", required = false) String localFilePath) {
-        logger.debug("Appel reçu pour à l'API : Transform.");
+            , @RequestParam(value = "locale", required = false) String localeString, @RequestParam(value = "", required = false) String localFilePath
+//                            @RequestParam(value = "translatefrom", required = false, defaultValue = "") String origLanguage,
+//                            @RequestParam(value = "to", required = false, defaultValue = "") String targetLanguage
+    ) {
+        logger.debug("Appel reçu pour l'API : Transform.");
+
+        return transformTRT(token, type, localeString, localFilePath);
+    }
+
+    private Object translateTRT(String token, String type, String localeString, String localFilePath, TranslateInfo translateInfo) {
+
+        ApiToken apiToken;
+        try {
+            // Vérification du token Thaleia
+            apiToken = getToken(token, false);
+        } catch (Exception e) {
+            logger.warn(e);
+            setResponseStatusCode(403);
+            return new JsonObject();
+        }
+
+        // Analyse du type de transformation demandée
+        if (type == null || type.isEmpty()) {
+            return error(400, "Missing parameter", "");
+        }
+
+        // Récupération de la classe d'implémentation du traitement
+        ITransformTreatment<?> transformTreatment;
+        transformTreatment = new CannelleTranslationTreatment(origLanguage, targetLanguage);
+        
+      /*  try {
+            transformTreatment = TransformTreatmentFactory.get(type, origLanguage, targetLanguage);
+        } catch (DetailedException e) {
+            logger.debug("Type " + type + " invalide.");
+            return error(400, "Wrong type", type + " type is not valid.");
+        }*/
+
+        // Analyse de la locale demandée
+        Locale locale = Locale.ENGLISH;
+        if (localeString != null && !localeString.isEmpty()) {
+            locale = Locale.forLanguageTag(localeString);
+            logger.debug("Locale demandée : '" + localeString + "' -> interprétée : " + locale);
+        }
+
+        /*// Enregistrement du contenu de l'import dans une fichier temporaire
+        HttpServletRequest request = (HttpServletRequest) (getCurrentWebRequest().getContainerRequest());
+        File tempBinaryFile;
+        // Les MockHttpServletRequest sont produites par les classes de test pour simuler des appels à l'API
+        if (request != null && !MockHttpServletRequest.class.isAssignableFrom(request.getClass())) {
+            // Dans le cas où ce n'est pas un appel de test, on recherche le binaire dans la requête
+            try {
+                tempBinaryFile = getInputBinary(request);
+            } catch (Exception e) {
+                logger.warn("Problème de récupération du fichier à traiter : ", e);
+                return error(400, "Input file retrieval error.", "");
+            }
+            if (tempBinaryFile == null) {
+                logger.warn("Pas de binaire reçu dans la requête.");
+                return error(400, "No input file retrieved.", "");
+            }
+        } else if (request != null && localFilePath != null && !localFilePath.isEmpty()) {
+            // Ce n'est pas une requête HTTP POST, mais un appel direct à la fonction de l'API par un test unitaire
+            tempBinaryFile = new File(localFilePath);
+        } else {
+            logger.warn("Pas de binaire reçu dans la fonction.");
+            return error(400, "No input file retrieved.", "");
+        }*/
+
+        File tempBinaryFile = null;
+        try {
+            tempBinaryFile = getContentVersionFile(locale);
+        } catch (DetailedException e) {
+            return error(500, "impossible de trouver le fichier correspondant à la version :" + contentVersionId,"");
+        }
+
+
+//        HttpServletRequest request = (HttpServletRequest) (getCurrentWebRequest().getContainerRequest());
+//        if (request != null && localFilePath != null && !localFilePath.isEmpty()) {
+//            // Ce n'est pas une requête HTTP POST, mais un appel direct à la fonction de l'API par un test unitaire
+//            tempBinaryFile = new File(localFilePath);
+//        } else {
+//            logger.warn("Pas de binaire reçu dans la fonction.");
+//            return error(400, "No input file retrieved.", "");
+//        }
+
+        // Préparation du résultat
+        Object result;
+        try {
+            logger.debug("Traitement d'une requête de transformation de type '" + type + "'");
+            result = transformTreatment.transform(tempBinaryFile, apiToken.getUser(), locale);
+        } catch (Exception e) {
+            logger.warn("Erreur de génération du contenu de la réponse lors d'une requête de traitement.", e);
+            logger.debug(ExceptionUtils.getFullStackTrace(e));
+            return error(500, "Response sending error", e.getMessage());
+        }
+
+        // Envoi du résultat
+        if (result.getClass().isAssignableFrom(File.class)) {
+            return sendBinaryToResponse((File) result);
+        } else {
+            ContentVersion newContentVersion = (ContentVersion) result;
+            return new CannelleImportResult(newContentVersion);
+        }
+    }
+
+    private JsonObject checkParameters(TranslateInfo translateInfo, String errorMessage) {
+        StringBuilder description = null;
+        if (translateInfo == null) {
+            description.append("The translateInfo parameter is null.\n");
+        }
+        if (translateInfo.targetLanguage == null || translateInfo.targetLanguage.isEmpty()) {
+            description.append("The targetLanguage parameter is invalid.\n");
+        }
+        if (translateInfo.contentVersionId == null || translateInfo.contentVersionId.isEmpty() ) {
+            description.append("The contentVersionId parameter is invalid.\n");
+        }
+        if (description!=null) {
+            return error(400, errorMessage, description.toString());
+        }
+        return null;
+    }
+
+
+    private File getContentVersionFile(Locale locale) throws DetailedException {
+        ObjectContext context = contextService.getNewContext();
+        LocaleDao localeDao = new LocaleDao(context);
+        fr.solunea.thaleia.model.Locale localeThaleia = localeDao.getLocale(locale);
+
+        ContentVersionDao contentVersionDao = new ContentVersionDao(context);
+        ContentVersion contentVersion = contentVersionDao.get(Integer.parseInt(contentVersionId));
+
+        ContentProperty uploadedFileProperty = new ContentPropertyDao(contentVersion.getObjectContext()).findByName("SourceFile");
+
+        String localDataDirAbsolutePath = ThaleiaApplication.get().getConfiguration().getLocalDataDir().getAbsolutePath();
+        String localizedFileDirName = ThaleiaApplication.get().getConfiguration().getBinaryPropertyType();
+        ContentPropertyValueDao contentPropertyValueDao = new ContentPropertyValueDao(localDataDirAbsolutePath, localizedFileDirName, context);
+        List<ContentPropertyValue> uploadedFilePropertyValues = contentPropertyValueDao.find(contentVersion, uploadedFileProperty,localeThaleia);
+        if (uploadedFilePropertyValues.isEmpty()) {
+            throw new DetailedException("impossible de trouver le fichier correspondant à la version :" + contentVersionId);
+        } else {
+            // On renvoie la 1ère valeur trouvée
+            ContentPropertyValue uploadedFilePropertyValue_0 = uploadedFilePropertyValues.get(0);
+            File localizedFileDir = contentPropertyValueDao.getFile(uploadedFilePropertyValue_0);
+            return localizedFileDir;
+        }
+    }
+
+
+    private Object transformTRT(String token, String type, String localeString, String localFilePath) {
 
         ApiToken apiToken;
         try {
@@ -88,7 +287,7 @@ public class TransformAPI extends ApiV1Service {
         // Récupération de la classe d'implémentation du traitement
         ITransformTreatment<?> transformTreatment;
         try {
-            transformTreatment = TransformTreatmentFactory.get(type);
+            transformTreatment = TransformTreatmentFactory.get(type, origLanguage, targetLanguage);
         } catch (DetailedException e) {
             logger.debug("Type " + type + " invalide.");
             return error(400, "Wrong type", type + " type is not valid.");
@@ -275,6 +474,18 @@ public class TransformAPI extends ApiV1Service {
 
         public String getLocale() {
             return locale;
+        }
+    }
+
+    private static class TranslateInfo {
+        public String origLanguage;
+        public String targetLanguage;
+        public String contentVersionId;
+
+        public TranslateInfo(String origLanguage, String targetLanguage, String contentVersionId) {
+            this.origLanguage = origLanguage;
+            this.targetLanguage = targetLanguage;
+            this.contentVersionId = contentVersionId;
         }
     }
 }

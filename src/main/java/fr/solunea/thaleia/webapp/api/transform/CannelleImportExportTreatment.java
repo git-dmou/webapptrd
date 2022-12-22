@@ -14,7 +14,7 @@ public class CannelleImportExportTreatment extends AbstractCannelleTreatment<Fil
      */
     @Override
     public File transform(Object input, User user, Locale locale) throws DetailedException {
-        return invokeCannelleMethod(input, user, locale, "generateAndExportFromSource");
+        return invokeCannelleMethod(input, user, locale, "generateAndExportFromSource", "","");
     }
 
 }

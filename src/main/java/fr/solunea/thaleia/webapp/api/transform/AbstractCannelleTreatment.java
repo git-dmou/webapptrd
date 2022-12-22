@@ -80,7 +80,7 @@ public abstract class AbstractCannelleTreatment<T> implements ITransformTreatmen
     }
 
     @SuppressWarnings("unchecked")
-    protected T invokeCannelleMethod(Object input, User user, Locale locale, String methodName) throws DetailedException {
+    protected T invokeCannelleMethod(Object input, User user, Locale locale, String methodName, String origLanguage, String targetLanguage) throws DetailedException {
         // Vérification de la présence du plugin Cannelle
         checkCannellePlugin();
 
@@ -97,8 +97,8 @@ public abstract class AbstractCannelleTreatment<T> implements ITransformTreatmen
                     "fr.solunea.thaleia.plugins.cannelle.v6.utils.CannelleTreatment");
             Constructor<?> constructor = aClass.getConstructor();
             Object instance = constructor.newInstance();
-            Method method = instance.getClass().getMethod(methodName, input.getClass(), User.class, Locale.class);
-            result = (T) method.invoke(instance, input, user, locale);
+            Method method = instance.getClass().getMethod(methodName, input.getClass(), User.class, Locale.class, String.class, String.class);
+            result = (T) method.invoke(instance, input, user, locale, origLanguage, targetLanguage);
         } catch (ClassNotFoundException e) {
             throw new DetailedException(e).addMessage(
                     "Impossible de retrouver la classe d'implémentation du traitement !");

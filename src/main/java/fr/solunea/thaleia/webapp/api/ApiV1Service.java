@@ -47,7 +47,7 @@ public class ApiV1Service extends AbstractRestResource<JsonWebSerialDeserial> {
     private final static Logger logger = Logger.getLogger(ApiV1Service.class);
     final CmiDataService cmiDataService;
     private final UserService userService;
-    private final ICayenneContextService contextService;
+    protected final ICayenneContextService contextService;
     private LicenceService licenceService;
 
     public ApiV1Service(ICayenneContextService contextService, Configuration configuration) {

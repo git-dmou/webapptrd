@@ -13,6 +13,6 @@ public class CannellePublicationExportTreatment extends AbstractCannelleTreatmen
      */
     @Override
     public File transform(Object input, User user, java.util.Locale contentLocale) throws DetailedException {
-        return invokeCannelleMethod(input, user, contentLocale, "publicationExport");
+        return invokeCannelleMethod(input, user, contentLocale, "publicationExport", "", "");
     }
 }

@@ -16,7 +16,6 @@ import fr.solunea.thaleia.utils.DetailedException;
 import fr.solunea.thaleia.webapp.ThaleiaApplication;
 import fr.solunea.thaleia.webapp.api.transform.ITransformTreatment;
 import fr.solunea.thaleia.webapp.api.transform.TransformTreatmentFactory;
-import fr.solunea.thaleia.webapp.security.ThaleiaSession;
 import org.apache.log4j.Logger;
 import org.apache.wicket.authorization.AuthorizationException;
 import org.wicketstuff.rest.annotations.MethodMapping;
@@ -137,7 +136,7 @@ public class PublicationAPI extends ApiV1Service {
         try {
             // Quel type de CV ?
             if ("module_cannelle".equals(contentVersion.getContentType().getName())) {
-                transformTreatment = TransformTreatmentFactory.get(TransformTreatmentFactory.CANNELLE_PUBLICATION_EXPORT);
+                transformTreatment = TransformTreatmentFactory.get(TransformTreatmentFactory.CANNELLE_PUBLICATION_EXPORT, "","");
             } else if ("Action".equals(contentVersion.getContentType().getName())) {
                 return error(400, "Publication for this content type is not implemented.", "");
             } else {
